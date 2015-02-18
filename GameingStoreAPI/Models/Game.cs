@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+
+namespace GamingStoreAPI.Models
+{
+    public class Game
+    {
+        public int ID { get; set; }
+        //[Remote attribute]
+        public string Name { get; set; }
+        public string Release { get; set; }
+        public decimal Price { get; set; }
+        public int InventoryCount { get; set; }
+
+        public List<Genre> Genres {get; set; }
+
+    }
+} 
