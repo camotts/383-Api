@@ -9,6 +9,6 @@ namespace GamingStoreAPI.Models
     {
         StoreAdmin,
         Employee,
-        Customer
+        Customer,
     }
 }
