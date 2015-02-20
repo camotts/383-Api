@@ -9,7 +9,6 @@ namespace GamingStoreAPI.Models
     public class Game
     {
         public int ID { get; set; }
-        //[Remote attribute]
         public string Name { get; set; }
         public string Release { get; set; }
         public decimal Price { get; set; }

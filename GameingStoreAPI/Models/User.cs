@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace GamingStoreAPI.Models
 {
     public class User
     {
         public int ID { get; set; }
-        //[Remote attribute]
+
+        [Required]
+        [EmailAddress(ErrorMessage="Not a valid email address")]
         public string Email { get; set; }
+
+        [Required]
         public string Password { get; set; }
+
+        [Required]
         public string APIKey { get; set; }
+
+        [Required]
         public Role Role { get; set; }
     }
 }
