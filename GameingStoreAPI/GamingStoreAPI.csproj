@@ -170,6 +170,14 @@
     <Compile Include="Migrations\201502182018518_initialUpdate.Designer.cs">
       <DependentUpon>201502182018518_initialUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502210007296_SeedingValuesAdded.cs" />
+    <Compile Include="Migrations\201502210007296_SeedingValuesAdded.Designer.cs">
+      <DependentUpon>201502210007296_SeedingValuesAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502210021061_SeedUpdate2.cs" />
+    <Compile Include="Migrations\201502210021061_SeedUpdate2.Designer.cs">
+      <DependentUpon>201502210021061_SeedUpdate2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Game.cs" />
