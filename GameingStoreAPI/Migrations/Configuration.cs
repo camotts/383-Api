@@ -38,7 +38,7 @@ namespace GamingStoreAPI.Migrations
                    Password = Crypto.HashPassword("selu2015"),
                    APIKey = GetApiKey(),
                    Role = Role.Employee,
-               });
+               },
                new User
                {
                    ID = 2,
@@ -46,7 +46,7 @@ namespace GamingStoreAPI.Migrations
                    Password = Crypto.HashPassword("password"),
                    APIKey = GetApiKey(),
                    Role = Role.Customer,
-               };
+               },
                new User
                {
                    ID = 3,
@@ -54,7 +54,7 @@ namespace GamingStoreAPI.Migrations
                    Password = Crypto.HashPassword("selu2015"),
                    APIKey = GetApiKey(),
                    Role = Role.StoreAdmin,
-               };
+               });
         }
     }
 }
