@@ -12,24 +12,26 @@ using GamingStoreAPI.Models;
 using GamingStoreAPI.DAL;
 using System.Web.Helpers;
 using System.Security.Cryptography;
+using GamingStoreAPI.Services;
 
 
 namespace GamingStoreAPI.Controllers
 {
     public class UsersController : ApiController
     {
-        private DataContext db = new DataContext();
-
+        private IUserRepository repo = new UserRepository();
+      
+        [AllowAnonymous]
         // GET api/Users
         public IEnumerable<User> GetUsers()
         {
-            return db.Users.AsEnumerable();
+            return repo.getListOfUsers();
         }
-
+        [AllowAnonymous]
         // GET api/Users/5
         public User GetUser(int id)
         {
-            User user = db.Users.Find(id);
+            User user = repo.getUserById(id);
             if (user == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -51,22 +53,15 @@ namespace GamingStoreAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            var userFound = db.Users.Find(user.ID);
-            if (user.Password != userFound.Password)
-            {
-                user.Password = Crypto.HashPassword(user.Password);
-            }
-
-            db.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-            }
+            repo.putUser(id, user);
+            //try
+            //{
+            //    db.SaveChanges();
+            //}
+            //catch (DbUpdateConcurrencyException ex)
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+            //}
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -76,11 +71,7 @@ namespace GamingStoreAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                 user.Password = Crypto.HashPassword(user.Password);
-                 user.APIKey = GetApiKey();
-                 db.Users.Add(user);
-                 db.SaveChanges();
-
+                repo.createUser(user);
                  HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, user);
                  response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = user.ID }));
                  return response;
@@ -95,23 +86,22 @@ namespace GamingStoreAPI.Controllers
         // DELETE api/Users/5
         public HttpResponseMessage DeleteUser(int id)
         {
-            User user = db.Users.Find(id);
+            User user = repo.getUserById(id);
             if (user == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
+            repo.deleteUser(user);
+            //db.Users.Remove(user);
 
-            db.Users.Remove(user);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-            }
-
+            //try
+            //{
+            //    db.SaveChanges();
+            //}
+            //catch (DbUpdateConcurrencyException ex)
+            //{
+            //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+            //}
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
@@ -128,10 +118,10 @@ namespace GamingStoreAPI.Controllers
         }
         
        
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    db.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 }
