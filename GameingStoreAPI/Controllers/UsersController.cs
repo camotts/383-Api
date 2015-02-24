@@ -69,6 +69,7 @@ namespace GamingStoreAPI.Controllers
         // POST api/Users
         public HttpResponseMessage PostUser(User user)
         {
+
             if (ModelState.IsValid)
             {
                 repo.createUser(user);
@@ -107,7 +108,8 @@ namespace GamingStoreAPI.Controllers
 
 
         // APIKey creation method For new users.
-        private static string GetApiKey()
+        [HttpGet]
+        public static string GetApiKey()
         {
             using (var rng = new RNGCryptoServiceProvider())
             {
@@ -123,5 +125,6 @@ namespace GamingStoreAPI.Controllers
         //    db.Dispose();
         //    base.Dispose(disposing);
         //}
+
     }
 }

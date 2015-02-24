@@ -1,19 +1,28 @@
 ﻿<div id="body">
-   <ul id="users"> </ul>
-    @section scripts{
-        <script type="text/javascript">
-            $(function(){
-                $.getJSON('/api/Users',function(usersJsonPayLoad){
-                    $(usersJsonPayLoad).each(function(i,item){
-                        $('#users').append('<li>'+item.Email+item.Password+item.Role+'</li>')
-                    });
-                });
-            });
-            
+   <ul id="div-users"> </ul>
+    
 
+    <div id="div-listUser">
 
+    </div>
 
-        </script>
-    }
+    <div id="div-createUser">
+        <input type="text" id="email"/>
+        <input type="password" id="password" />
+        <select id="role">
+            <option value="1">Cutomer</option>
+            <option value="2">Employee</option>
+            <option value="3">Sales Administrator</option>
+        </select>
+        <button type="button" title="Create User" id="submit" onclick="createUser();">Create User</button>
+    </div>
    
+    <div id="div-searchUser">
+        <input type="text" id="userId"/>
+        <button type="button" title="Search User" id="submit" onclick="find();">Search for User</button>
+
+    </div>
+
+    <div id="div-specificUser"></div>
+
 </div>

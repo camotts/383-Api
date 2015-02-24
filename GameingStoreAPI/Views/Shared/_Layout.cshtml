@@ -6,25 +6,55 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Custom%20Scripts/Bootswatch.js"></script>
 </head>
 <body>
     <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a></p>
-            </div>
-            <div class="float-right">
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                </nav>
+
+
+       @{Html.RenderPartial("~/Views/Shared/Shared Partials/TopNavBarPartial.cshtml");}
+    </header>
+
+    <div class="container body-content">
+
+        <div class="row pull-right">
+
+            <div class="btn-group" id="btn-group">
+                <label class="btn btn-primary" id="theme0" onclick="change(6)" style="background-color : white; border-color: black;"></label>
+                <label class="btn btn-primary" id="theme1" onclick="change(2)" style="background-color : black; border-color: black;"></label>
+                <label class="btn btn-primary" id="theme2" onclick="change(3)" style="background-color : rgb(184, 184, 184); border-color: black;"></label>
+                <label class="btn btn-primary" id="theme3" onclick="change(13)" style="background-color : orange; border-color: black;"></label>
+                <label class="btn btn-primary" id="theme4" onclick="change(9)" style="background-color : #81b33a; border-color: black;"></label>
+                <label class="btn btn-primary" id="theme5" onclick="change(5)" style="background-color : red; border-color: black;"></label>
             </div>
         </div>
-    </header>
-    @RenderBody()
+        <br /><br />
+
+        @RenderBody()
+
+        <hr />
+
+        <div class="navbar navbar-inverse navbar-top footer">
+
+            <label class="pull-left"> @DateTime.Now.Year - Team 6 CMPS383</label>
+
+            <!--This is the Combo box for changing the style-->
+            <select id="API-DropDown" class="btn btn-default pull-left bottom-drop-down" style="display: none; margin-left:20px;"></select>
+
+            <label class="pull-right" id="bootswatch-theme"></label>
+
+        </div>
+
+    </div>
+    <style type="text/css">
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 60%;
+        }
+    </style>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

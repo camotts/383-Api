@@ -34,7 +34,7 @@ namespace GamingStoreAPI.Services
             return searchUser;
         }
 
-
+        //POST 
         public void createUser(Models.User user)
         {
                 user.Password = Crypto.HashPassword(user.Password);
