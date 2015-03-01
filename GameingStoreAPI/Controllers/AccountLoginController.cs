@@ -13,9 +13,6 @@ namespace GamingStoreAPI.Controllers
     public class AccountLoginController : ApiController
     {
 
-        [Basic
-        public 
-
-
+        
     }
 }

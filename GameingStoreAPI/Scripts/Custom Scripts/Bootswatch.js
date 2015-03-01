@@ -1,7 +1,7 @@
 ﻿
 try {
     var theme = JSON.parse(localStorage.getItem("savedTheme"));
-    var pageLoad = false;
+    var pageload = false;
 } catch (ex) {
     var theme = null;
     var pageload = true;
@@ -22,16 +22,17 @@ $.get("http://api.bootswatch.com/3/", function (data) {
     //put the default value of the theme if the theme is null
     if (theme == null) {
         document.getElementById("API-DropDown").selectedIndex = "6";
+        theme = themes[6];
     }
 
     select.change(function () {
-        if (pageLoad) {
+        if (pageload) {
             var theme1 = themes[$(this).val()];
             localStorage.setItem("savedTheme", JSON.stringify(theme1));
             $("link").attr("href", theme1.css);
         }
         else {
-            pageLoad = true;
+            pageload = true;
             $("link").attr("href", theme.css);
         }
     }).change();
@@ -47,13 +48,13 @@ function change(id) {
         var select = $("#API-DropDown");
 
         select.change(function () {
-            if (pageLoad) {
+            if (pageload) {
                 var theme1 = themes[$(this).val()];
                 localStorage.setItem("savedTheme", JSON.stringify(theme1));
                 $("link").attr("href", theme1.css);
             }
             else {
-                pageLoad = true;
+                pageload = true;
                 $("link").attr("href", theme.css);
             }
         }).change();
