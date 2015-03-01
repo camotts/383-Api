@@ -21,12 +21,13 @@ namespace GamingStoreAPI.Controllers
     {
         private IUserRepository repo = new UserRepository();
       
-        [AllowAnonymous]
+        //[Authorize(Roles="")]
         // GET api/Users
         public IEnumerable<User> GetUsers()
         {
             return repo.getListOfUsers();
         }
+
         [AllowAnonymous]
         // GET api/Users/5
         public User GetUser(int id)

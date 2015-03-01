@@ -4,30 +4,45 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using GamingStoreAPI.DAL;
+using GamingStoreAPI.Services;
+using System.Net.Http.Headers;
 
 namespace GamingStoreAPI.Controllers
 {
+
+    //Endpoint to acquire APIKey
     public class ApiKeyController : ApiController
     {
 
-        //Endpoint requirement to acquire apikey from login
-        // with valid email and password.
-        [HttpGet]
-        public string getApiKey()
-        {
-            using (DataContext db = new DataContext()){
+        private IApiKeyRepository repo = new ApiKeyRepository();
 
-                if (User.Identity.IsAuthenticated)
-                {
-                    return db.Users.Find(User.Identity.Name).APIKey;
-                }
-                else
-                {
-                    return null;
-                }
+
+        [AllowAnonymous]
+        public HttpResponseMessage GetAPIKey(string email, string password)
+        {
+            var user = repo.getApiKey(email, password);
+            if (user == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Invalid Email or Password");
             }
-        }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+
+            var idcookie = new CookieHeaderValue("xcmps383authenticationid", user.ID.ToString());
+            idcookie.Domain = Request.RequestUri.Host;
+            idcookie.Path = "/";
+
+            var keycookie = new CookieHeaderValue("xcmps383authenticationkey", user.APIKey);
+            keycookie.Domain = Request.RequestUri.Host;
+            keycookie.Path = "/";
+
+            response.Headers.AddCookies(new CookieHeaderValue[] {idcookie, keycookie});
+            return response;
+        } 
 
 
     }
