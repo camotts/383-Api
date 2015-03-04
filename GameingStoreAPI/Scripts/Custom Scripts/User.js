@@ -17,20 +17,29 @@ function formatSpecific(item) {
 }
 
 function find() {
+    
+
+
+    console.log("Search?")
     var id = $('#userId').val();
     $.getJSON(uri + '/' + id)
         .done(function (data) {
+
+            console.log(data);
             $('#div-specificUser').text(formatSpecific(data));
+
         })
         .fail(function (jqXHR, textStatus, err) {
             $('#div-specificUser').text('Error: ' + err);
         });
+    $('#div-deleteButton').show();
+    $('#div-deleteUser').show();
 }
 
 function listUsers() {
 
-    var deleteButton = $('<button />').addClass('deleteButton').text('Delete').click(deleteUser());
-
+    
+    showListUsers();
     
 
     var ajaxHandler = $.ajax({
@@ -39,12 +48,13 @@ function listUsers() {
     });
     ajaxHandler.done(function (result) {
         console.log("agh");
-        $.each(result, function (key, item) {
+        $.each(result, function (key, item) {            
+            
             // Add a list item for the product.
             $('<li>', { text: formatItem(item) }).attr("Id", "list" + item.ID).appendTo($('#div-listUser'));
-            deleteButton.click(deleteUser(item.ID));
-            deleteButton.attr("Id", "button" + item.ID).appendTo('#list' + item.ID);
-            document.getElementById('button'+item.ID).onclick = deleteUser(item.ID);
+            
+            
+            
 
         });
     });
@@ -101,6 +111,8 @@ function createUser() {
 
 function showListUsers() {
     $('div[id^="div-"]').hide();
+    $('#div-specificUser').show();
+    $('#div-searchUser').show();
     $('#div-listUser').show();
 }
 
