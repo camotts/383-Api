@@ -148,8 +148,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\AuthorizationHeaderHandler.cs" />
     <Compile Include="Controllers\ApiKeyController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PartialController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomValidation\EmailExists.cs" />
     <Compile Include="DAL\DataContext.cs" />
@@ -182,8 +185,16 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApiKeyRepository.cs" />
+    <Compile Include="Services\CartRepository.cs" />
+    <Compile Include="Services\GameRepository.cs" />
     <Compile Include="Services\IApiKeyRepository.cs" />
+    <Compile Include="Services\ICartRepository.cs" />
+    <Compile Include="Services\IGameRepository.cs" />
+    <Compile Include="Services\ISaleRepository.cs" />
+    <Compile Include="Services\ITagRepository.cs" />
     <Compile Include="Services\IUserRepository.cs" />
+    <Compile Include="Services\SaleRepository.cs" />
+    <Compile Include="Services\TagRepository.cs" />
     <Compile Include="Services\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
