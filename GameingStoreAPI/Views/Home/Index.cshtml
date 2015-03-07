@@ -46,3 +46,51 @@
         <button type="button" title="Login" id="login" onclick="showLogin();">Login</button>
     </div>
 </div>
+<div>
+    Name: <input type="text" id="gamename" placeholder="Game" />
+    Releasedate: <input type="text" id="releasedate" placeholder="ReleaseDate" />
+    Price: <input type="text" id="price" placeholder="Id" />
+    InventoryCount: <input type="text" id="inventory"/>
+    <button type="button" title="EditGame" id="race" >Edit Game</button>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $('#race').click(function () {
+            //alert("ok");
+            
+            var name = $('#gamename').val();
+            var releasedate = $('#releasedate').val();
+            var price = $('#price').val();
+            var inventory = $('#inventory').val();
+            var url1 = '/api/games/'
+            $.ajax({
+
+                type: 'PUT',
+                cache: false,
+                dataType: 'JSON',
+
+                contentType: 'application/json',
+                data: JSON.stringify(
+                    {
+                        'ID':15,
+                        'Name': name,
+                        'ReleaseDate': releasedate,
+                        'Price': price,
+                        'InventoryCount': inventory
+                    }
+                    ),
+                url: url1 + 15,
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                },
+                error: function (e) {
+                    alert("Error:" + JSON.stringify(e));
+                }
+            });
+        });
+    });
+</script>
+
+
