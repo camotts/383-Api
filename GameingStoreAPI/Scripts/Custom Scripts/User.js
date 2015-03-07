@@ -26,7 +26,12 @@ function find() {
         .done(function (data) {
 
             console.log(data);
+            console.log(data.ID);
             $('#div-specificUser').text(formatSpecific(data));
+            $('#deleteButton').attr( 'value', data.ID.toString());
+            $('#editButton').attr('value', data.ID.toString());
+            $('#emailEdit').text(data.Email);
+            document.getElementById("roleEdit").selectedIndex = data.Role;
 
         })
         .fail(function (jqXHR, textStatus, err) {
@@ -34,6 +39,7 @@ function find() {
         });
     $('#div-deleteButton').show();
     $('#div-deleteUser').show();
+    
 }
 
 function listUsers() {
@@ -116,10 +122,12 @@ function showListUsers() {
     $('#div-listUser').show();
 }
 
-function deleteUser(id) {
-    /*var ajaxHandler = $.ajax({
+function deleteUser() {
+    var id = $('#deleteButton').attr('value');
+    console.log(id);
+    var ajaxHandler = $.ajax({
         type: 'DELETE',
-        url: uri,
+        url: uri+'/' + id,
         dataType: 'json',
         data: {
         },
@@ -136,5 +144,63 @@ function deleteUser(id) {
         console.log(thrownError)
         alert('Fail');
     });
-    */
+    
+    $('#div-listUser').html("");
+    listUsers();
+}
+
+function showEditUser() {
+
+    $('div[id^="div-"]').hide();
+    $('#div-editUser').show();
+}
+
+function editUser() {
+    var id = $('#editButton').attr('value');
+
+    var email = $('#emailEdit').val();
+    var password = $('#passwordEdit').val();
+
+    var role = $('#roleEdit').val();
+    var apiKey = "123";
+
+    console.log(id);
+    var ajaxHandler = $.ajax({
+        type: 'Put',
+        url: uri + '/' + id,
+        dataType: 'json',
+        data: {
+            'id':id,
+            'email': email.toString(),
+            'password': password.toString(),
+            'role': role,
+            'APIKey': apiKey
+        },
+    });
+
+    ajaxHandler.done(function (result) {
+        console.log(result);
+    });
+
+    ajaxHandler.fail(function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr)
+        console.log(ajaxOptions)
+        console.log(thrownError)
+        alert('Fail');
+    });
+
+
+    $('#div-listUser').html("");
+    listUsers();
+    find();
+}
+
+function showLogin() {
+    $('div[id^="div-"]').hide();
+    $('#div-loginUser').show();
+}
+
+function loginUser() {
+    console.log("Hit?");
+
 }

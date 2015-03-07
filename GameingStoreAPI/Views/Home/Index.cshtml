@@ -24,6 +24,25 @@
     </div>
 
     <div id="div-specificUser"></div>
-        <div id="div-deleteUser"/>
-            <button type="button" id="deleteButton" onclick="deleteUser();" value="" style="display:block">Delete User</button>
+        <div id="div-deleteUser">
+            <button type="button" id="deleteButton" onclick="deleteUser();" value="temp" style="display:block">Delete User</button>
+            <button type="button" id="editButton" onclick="showEditUser();" value="temp" style="display:block">Edit User</button>
+        </div>
+
+    <div id="div-editUser">
+    <input type="text" id="emailEdit" placeholder="Email"></input>
+    <input type="password" id="passwordEdit" placeholder="Password"></input>
+    <select id="roleEdit">
+        <option value="2">Cutomer</option>
+        <option value="1">Employee</option>
+        <option value="0">Sales Administrator</option>
+    </select>
+    <button type="button" title="Create User" id="edit" onclick="editUser();">Edit User</button>
+    </div>
+
+    <div id="div-loginUser">
+        <input type="text" id="emailLogin" placeholder="Email"></input>
+        <input type="password" id="passwordLogin" placeholder="Password"></input>
+        <button type="button" title="Login" id="login" onclick="showLogin();">Login</button>
+    </div>
 </div>
