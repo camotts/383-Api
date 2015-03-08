@@ -55,6 +55,8 @@ namespace GamingStoreAPI.Migrations
                    APIKey = GetApiKey(),
                    Role = Role.StoreAdmin,
                });
+
+            
         }
     }
 }

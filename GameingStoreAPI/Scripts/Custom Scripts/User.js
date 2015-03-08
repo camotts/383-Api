@@ -1,8 +1,14 @@
-﻿var uri = '/api/users';
+﻿var userUri = '/api/users';
+var gameUri = '/api/games';
+var genreUri = '/api/genres';
+var tagUri = '/api/tags';
+var saleUri = '/api/sales';
+var cartUri = '/api/carts';
+
 $(document).ready(function () {
 
     $('div[id^="div-"]').hide();
-    console.log("on load");
+
     listUsers();
 
 });
@@ -18,15 +24,10 @@ function formatSpecific(item) {
 
 function find() {
     
-
-
-    console.log("Search?")
     var id = $('#userId').val();
-    $.getJSON(uri + '/' + id)
+    $.getJSON(userUri + '/' + id)
         .done(function (data) {
 
-            console.log(data);
-            console.log(data.ID);
             $('#div-specificUser').text(formatSpecific(data));
             $('#deleteButton').attr( 'value', data.ID.toString());
             $('#editButton').attr('value', data.ID.toString());
@@ -50,14 +51,14 @@ function listUsers() {
 
     var ajaxHandler = $.ajax({
         Type: 'GET',
-        url: uri,
+        url: userUri,
     });
     ajaxHandler.done(function (result) {
-        console.log("agh");
+
         $.each(result, function (key, item) {            
             
             // Add a list item for the product.
-            $('<li>', { text: formatItem(item) }).attr("Id", "list" + item.ID).appendTo($('#div-listUser'));
+            $('<li>', { text: formatItem(item) }).attr("Id", "userList" + item.ID).appendTo($('#div-listUser'));
             
             
             
@@ -78,7 +79,7 @@ function showCreateUser() {
 }
 
 function createUser() {
-    console.log("here");
+
     var email = $('#email').val();
     var password = $('#password').val();
     var role = $('#role').val();
@@ -88,7 +89,7 @@ function createUser() {
 
     var ajaxHandler = $.ajax({
         type: 'POST',
-        url: uri,
+        url: userUri,
         dataType: 'json',
         data: {
             'email': email.toString(),
@@ -99,7 +100,7 @@ function createUser() {
     });
 
     ajaxHandler.done(function (result){
-        console.log(result);
+
         $('<li>', { text: formatItem(result) }).id(result.ID).appendTo($('#div-listUser'));
         deleteButton.attr("Id", "button" + result.ID).appendTo('#list' + result.ID);
     });
@@ -124,17 +125,17 @@ function showListUsers() {
 
 function deleteUser() {
     var id = $('#deleteButton').attr('value');
-    console.log(id);
+
     var ajaxHandler = $.ajax({
         type: 'DELETE',
-        url: uri+'/' + id,
+        url: userUri+'/' + id,
         dataType: 'json',
         data: {
         },
     });
 
     ajaxHandler.done(function (result) {
-        console.log(result);
+
         $('list').remove();
     });
 
@@ -164,10 +165,9 @@ function editUser() {
     var role = $('#roleEdit').val();
     var apiKey = "123";
 
-    console.log(id);
     var ajaxHandler = $.ajax({
         type: 'Put',
-        url: uri + '/' + id,
+        url: userUri + '/' + id,
         dataType: 'json',
         data: {
             'id':id,
@@ -201,6 +201,6 @@ function showLogin() {
 }
 
 function loginUser() {
-    console.log("Hit?");
+
 
 }

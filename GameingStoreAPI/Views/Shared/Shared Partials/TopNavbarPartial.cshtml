@@ -1,4 +1,8 @@
-﻿<script src="~/Scripts/Custom%20Scripts/User.js"></script>
+﻿<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/Custom%20Scripts/User.js"></script>
+<script src="~/Scripts/Custom%20Scripts/Game.js"></script>
+<script src="~/Scripts/Custom%20Scripts/Tags.js"></script>
 
 <div class="navbar navbar-inverse navbar-top">
     <div class="container">
@@ -27,9 +31,11 @@
             }
             else
             {
-                <button type="button" title="Create User" id="submit" onclick="showCreateUser();">Create User</button>
-                <button type="button" title="Show Users" id="submit" onclick="showListUsers();">User List</button>
-                <button type="button" title="Login" id="submit" onclick="showLogin();">Login</button>
+                <button type="button" class="btn-primary" title="Create User" id="createUserButton" onclick="showCreateUser();">Create User</button>
+                <button type="button" class="btn-primary" title="Show Users" id="showUserListButton" onclick="showListUsers();">User List</button>
+                <button type="button" class="btn-primary" title="Login" id="showLoginButton" onclick="showLogin();">Login</button>
+                <button type="button" class="btn-primary" title="Show Games" id="showGameListButton" onclick="showListGames();" >Game List</button>
+                <button type="button" class="btn-primary" title="Show Tag" id="showTagListButton" onclick="showListTags();" >Tag List</button>
             }
         </div>
     </div>

@@ -25,11 +25,11 @@ namespace GamingStoreAPI.Services
             return id;
         }
 
-       // public Models.Sale getSaleByEmployeeId(int Id)
-       // {
-          //  Sale searchEmployee = db.Sales.Find(Id);
-           // return searchEmployee;
-       // }
+        public Models.Sale getSaleByEmployeeId(int Id)
+        {
+            Sale searchEmployee = db.Sales.Find(Id);
+            return searchEmployee;
+        }
         
 
     

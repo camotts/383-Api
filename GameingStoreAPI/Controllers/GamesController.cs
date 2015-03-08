@@ -16,7 +16,7 @@ namespace GamingStoreAPI.Controllers
 
         //[Authorize(Roles="")]
         // GET api/Games
-        public IEnumerable<Game> GetUsers()
+        public IEnumerable<Game> GetGames()
         {
             return repo.getListOfGames();
         }
@@ -57,7 +57,7 @@ namespace GamingStoreAPI.Controllers
             //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             //}
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, game);
         }
 
         // POST api/Games

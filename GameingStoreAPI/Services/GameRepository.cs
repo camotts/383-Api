@@ -59,6 +59,7 @@ namespace GamingStoreAPI.Services
             modifyGame.Price = game.Price;
             modifyGame.InventoryCount = game.InventoryCount;
             modifyGame.Tags = game.Tags;
+            modifyGame.ReleaseDate = game.ReleaseDate;
             db.Entry(modifyGame).State = EntityState.Modified;
             db.SaveChanges();
         }
