@@ -37,15 +37,16 @@ namespace GamingStoreAPI.Controllers
 
         [AllowAnonymous]
         // GET api/Users/5
-        public User GetUser(int id)
+        public HttpResponseMessage GetUser(int id)
         {
             User user = repo.getUserById(id);
             if (user == null)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                return Request.CreateResponse(HttpStatusCode.NotFound, "User not Found");
             }
+            UserDTO factoredUser = TheFactory.Create(user);
 
-            return user;
+            return Request.CreateResponse(HttpStatusCode.OK, factoredUser);
         }
 
         // PUT api/Users/5

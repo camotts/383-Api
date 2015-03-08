@@ -175,6 +175,12 @@ function listGames() {
     ajaxHandler.done(function (result) {
         $.each(result, function (key, item) {
             // Add a list item for the product.
+            $('<div>').attr('class', "panel panel-default").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth1").attr('aria-expanded', "false").appendTo($('#gameListAccordion'));
+            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth2").attr('aria-expanded', "false").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth1'));
+            $('<h4>').attr('class', "panel-title").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth3").attr('aria-expanded', "false").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth2'));
+            $('<a>', { text: item.Name }).attr("data-toggle", "collapse").attr("data-parent", "#gameListAccordion").attr("href", "#collapse" + item.Url.substr(item.Url.length - 1)).attr('aria-labelledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth4").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth3'));
+            $('<div>').attr('id', "collapse" + item.Url.substr(item.Url.length - 1)).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth1'));
+            $('<div>', { html: formatGame(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
             $('<li>', { html: formatGame(item) }).attr("Id", "gameList" + item.ID).appendTo($('#div-listGame'));
         });
     });
@@ -203,7 +209,7 @@ function showListGames() {
 }
 
 function formatGame(game) {
-    var text = 'Game # ' + game.ID + '\nName: ' + game.Name + '\n\tRelease Date: ' + game.ReleaseDate + '\n\tPrice: ' + game.Price;
+    var text = '\nName: ' + game.Name + '\n\tRelease Date: ' + game.ReleaseDate + '\n\tPrice: ' + game.Price;
 
     return text = text.replace(/\r?\n/g, '<br />');
 }

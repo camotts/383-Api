@@ -1,4 +1,5 @@
 ﻿using GamingStoreAPI.Models;
+using GamingStoreAPI.Models.DTOS;
 using GamingStoreAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -16,22 +17,32 @@ namespace GamingStoreAPI.Controllers
 
         //[Authorize(Roles="")]
         // GET api/Games
-        public IEnumerable<Game> GetGames()
+        public HttpResponseMessage GetGames()
         {
-            return repo.getListOfGames();
+            List<GameDTO> ListOfGames = new List<GameDTO>();
+            foreach (var item in repo.getListOfGames())
+            {
+
+                ListOfGames.Add(TheFactory.Create(item));
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ListOfGames);
         }
 
         [AllowAnonymous]
         // GET api/Games/5
-        public Game GetGame(int id)
+        public HttpResponseMessage GetGame(int id)
         {
             Game game = repo.getGameById(id);
             if (game == null)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                return Request.CreateResponse(HttpStatusCode.NotFound,"Game not found");
+                //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
+            GameDTO factoredGame = TheFactory.Create(game);
 
-            return game;
+            return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+            //return game;
         }
 
         // PUT api/Games/5

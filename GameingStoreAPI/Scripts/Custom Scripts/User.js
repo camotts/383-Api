@@ -18,8 +18,7 @@ function formatItem(item) {
 }
 
 function formatSpecific(item) {
-    return 'Customer email: ' + item.Email +
-            '\n' + 'Customer Role: ' + item.Role;
+    return 'Customer Role: ' + item.Role;
 }
 
 function find() {
@@ -56,10 +55,13 @@ function listUsers() {
     ajaxHandler.done(function (result) {
 
         $.each(result, function (key, item) {            
-            
             // Add a list item for the product.
-            $('<li>', { text: formatItem(item) }).attr("Id", "userList" + item.ID).appendTo($('#div-listUser'));
-            console.log(item);
+            $('<div>').attr('class', "panel panel-default").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth1").attr('aria-expanded', "false").appendTo($('#userListAccordion'));
+            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth2").attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth1'));
+            $('<h4>').attr('class', "panel-title").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth3").attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth2'));
+            $('<a>', { text: item.Email }).attr("data-toggle", "collapse").attr("data-parent", "#userListAccordion").attr("href", "#collapse" + item.Url.substr(item.Url.length - 1)).attr('aria-labelledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth4").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth3'));
+            $('<div>').attr('id', "collapse" + item.Url.substr(item.Url.length - 1)).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth1'));
+            $('<div>', { text: formatItem(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
             
             
 

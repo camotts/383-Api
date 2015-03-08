@@ -179,6 +179,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\DTOS\DTOFactory.cs" />
+    <Compile Include="Models\DTOS\GameDTO.cs" />
     <Compile Include="Models\DTOS\UserDTO.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Genre.cs" />

@@ -32,5 +32,21 @@ namespace GamingStoreAPI.Models.DTOS
 
         }
 
+        public GameDTO Create(Game game)
+        {
+
+            return new GameDTO()
+            {
+                Url = urlbuilder.Link("GamingStoreRoute", new { id = game.ID }),
+                Name = game.Name,
+                ReleaseDate = game.ReleaseDate,
+                Price = game.Price,
+                InventoryCount = game.InventoryCount,
+                Tags = game.Tags,
+                Genres = game.Genres
+            };
+
+        }
+
     }
 }

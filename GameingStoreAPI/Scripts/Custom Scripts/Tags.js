@@ -101,7 +101,6 @@ function showEditTag() {
 
 function editTag() {
 
-    alert(document.querySelectorAll('input[type="checkbox"]:checked').length);
     var id = $('#editGameButton').attr('value');
 
     var name = $('#gameTag').val();
@@ -127,4 +126,41 @@ function editTag() {
         alert('Fail');
     });
 
+}
+
+function showCreateTag() {
+    $('div[id^="div-"]').hide();
+    $('#div-createTag').show();
+}
+
+function createTag() {
+
+    var name = $('#createTagName').val();
+    console.log(name);
+
+
+
+    var ajaxHandler = $.ajax({
+        type: 'POST',
+        url: tagUri,
+        dataType: 'json',
+        data: {
+            'Name': name
+        },
+    });
+
+    ajaxHandler.done(function (result) {
+
+        $('<li>', { text: formatTag(result) }).id(result.ID).appendTo($('#div-listTag'));
+    });
+
+    ajaxHandler.fail(function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr)
+        console.log(ajaxOptions)
+        console.log(thrownError)
+        alert('Fail');
+    });
+
+    $('div[id^="div-"]').hide();
+    $('#div-listTag').show();
 }

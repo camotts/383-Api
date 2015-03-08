@@ -63,7 +63,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "Grand Theft Auto V",
                    Price = 59.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2015-04-14T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("04/14/2015"),
                },
                new Game
                {
@@ -71,7 +71,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "Call of Duty: Advanced Warfare",
                    Price = 59.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2014-11-03T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("11/03/2014"),
                },
                new Game
                {
@@ -79,7 +79,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "Dying Light",
                    Price = 59.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2015-01-27T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("01/27/2015"),
                },
                new Game
                {
@@ -87,7 +87,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "Hotline Miami 2: Wrong Number",
                    Price = 13.49M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2015-03-10T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("03/10/2015"),
                },
                new Game
                {
@@ -95,15 +95,15 @@ namespace GamingStoreAPI.Migrations
                    Name = "Assassin’s Creed® Rogue",
                    Price = 49.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2015-03-10T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("03/10/2015"),
                },
                new Game
                {
                    ID = 6,
-                   Name = "Counter-Strike: Global Offensive",
+                   Name = "Counter/Strike: Global Offensive",
                    Price = 14.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2012-08-21T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("08/21/2010"),
                },
                new Game
                {
@@ -111,7 +111,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "Dragon Ball Xenoverse",
                    Price = 49.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2015-02-26T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("02/26/2015"),
                },
                new Game
                {
@@ -119,7 +119,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "FTL: Faster Than Light",
                    Price = 9.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2012-09-14T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("09/14/2012"),
                },
                new Game
                {
@@ -127,7 +127,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "BattleBlock Theater",
                    Price = 5.09M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2014-05-15T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("05/15/2014"),
                },
                new Game
                {
@@ -135,7 +135,7 @@ namespace GamingStoreAPI.Migrations
                    Name = "Saints Row IV",
                    Price = 19.99M,
                    InventoryCount = 56,
-                   ReleaseDate = DateTime.Parse("2013-08-19T00:00:00.000"),
+                   ReleaseDate = DateTime.Parse("08/19/2013"),
                }
           );
 
