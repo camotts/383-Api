@@ -21,5 +21,7 @@ namespace GamingStoreAPI.Models
         public List<Genre> Genres {get; set; }
 
         public List<Tags> Tags { get; set; }
+
+        
     }
 } 

@@ -13,19 +13,26 @@ using GamingStoreAPI.DAL;
 using System.Web.Helpers;
 using System.Security.Cryptography;
 using GamingStoreAPI.Services;
+using GamingStoreAPI.Models.DTOS;
 
 
 namespace GamingStoreAPI.Controllers
 {
-    public class UsersController : ApiController
+    public class UsersController : BaseApiController
     {
         private IUserRepository repo = new UserRepository();
       
         //[Authorize(Roles="")]
         // GET api/Users
-        public IEnumerable<User> GetUsers()
+        public HttpResponseMessage GetUsers()
         {
-            return repo.getListOfUsers();
+            List<UserDTO> ListOfUsers = new List<UserDTO>();
+            foreach(var item in repo.getListOfUsers()){
+
+                ListOfUsers.Add(TheFactory.Create(item));
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ListOfUsers);
         }
 
         [AllowAnonymous]
@@ -35,10 +42,19 @@ namespace GamingStoreAPI.Controllers
             User user = repo.getUserById(id);
             if (user == null)
             {
+<<<<<<< HEAD
                 return Request.CreateResponse(HttpStatusCode.NotFound, "User With Id:" + id + " Not Found");
+=======
+                return Request.CreateResponse(HttpStatusCode.NotFound, "User not Found");
+>>>>>>> c4942b80ff0d323eaba4788dc2a45556ffeeeaf5
             }
+            UserDTO factoredUser = TheFactory.Create(user);
 
+<<<<<<< HEAD
             return Request.CreateResponse(HttpStatusCode.OK, user); ;
+=======
+            return Request.CreateResponse(HttpStatusCode.OK, factoredUser);
+>>>>>>> c4942b80ff0d323eaba4788dc2a45556ffeeeaf5
         }
 
         // PUT api/Users/5

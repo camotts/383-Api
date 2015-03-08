@@ -1,29 +1,139 @@
 ﻿<div id="body">
-   <ul id="div-users"> </ul>
+
+    <div id="generalUserDiv">
+
+        <ul id="div-users"> </ul>
+
+
+        <div id="div-listUser">
+            <div class="panel-group" id="userListAccordion" role="tablist" aria-multiselectable="true">
+            </div>
+        </div>
+
+        <div id="div-createUser">
+            <input type="text" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="Password" />
+            <select id="role">
+                <option value="2">Cutomer</option>
+                <option value="1">Employee</option>
+                <option value="0">Sales Administrator</option>
+            </select>
+            <button type="button" title="Create User" id="submit" onclick="createUser();">Create User</button>
+        </div>
+
+        <div id="div-searchUser">
+            <input type="text" id="userId" placeholder="User Id" />
+            <button type="button" title="Search User" id="submit" onclick="find();">Search for User</button>
+
+        </div>
+
+        <div id="div-specificUser">
+            <div id="div-deleteUser">
+                <button type="button" id="deleteButton" onclick="deleteUser();" value="temp" style="display:block">Delete User</button>
+                <button type="button" id="editButton" onclick="showEditUser();" value="temp" style="display:block">Edit User</button>
+            </div>
+        </div>
+
+        <div id="div-editUser">
+            <input type="text" id="emailEdit" placeholder="Email"></input>
+            <input type="password" id="passwordEdit" placeholder="Password"></input>
+            <select id="roleEdit">
+                <option value="2">Cutomer</option>
+                <option value="1">Employee</option>
+                <option value="0">Sales Administrator</option>
+            </select>
+            <button type="button" title="Create User" id="edit" onclick="editUser();">Edit User</button>
+        </div>
+
+
+        <div id="div-loginUser">
+            <input type="text" id="emailLogin" placeholder="Email"></input>
+            <input type="password" id="passwordLogin" placeholder="Password"></input>
+            <button type="button" title="Login" id="login" onclick="showLogin();">Login</button>
+        </div>
+
+    </div>
+
+    <div id="generalGameDiv">
+
+        <div id="div-listGame">
+            <div class="panel-group" id="gameListAccordion" role="tablist" aria-multiselectable="true">
+            </div>
+        </div>
+
+        <div id="div-searchGame">
+            <input type="text" id="gameId" placeholder="Game Id"/>
+            <button type="button" title="Search Game" id="submit" onclick="findGame();">Search for Game</button>
+
+        </div>
+
+        <div id="div-specificGame">
+            <div id="div-specificGameInfo"></div>
+            <div id="div-changeGame">
+                <button type="button" id="deleteGameButton" onclick="deleteGame();" value="temp">Delete Game</button>
+                <button type="button" id="editGameButton" onclick="showEditGame();" value="temp">Edit Game</button>
+            </div>
+        </div>
+
+        <div id="div-editGame">
+            Name: <input type="text" id="gameName" placeholder="Game" />
+            Releasedate: <input type="text" id="gameReleaseDate" placeholder="ReleaseDate" />
+            Price: <input type="text" id="gamePrice" placeholder="Id" />
+            InventoryCount: <input type="text" id="gameInventoryAmmount" />
+            <button type="button" title="EditGame" id="race" onclick="editGame()";>Edit Game</button>
+
+            <br/>
+            <div id ="div-checkboxListOfTags"class="col-xs-6">
+
+                <h3 class="text-center">Tags</h3>
+
+                <div class="well" style="max-height: 300px;overflow: auto;">
+
+                    <ul class="list-group checked-list-box" id="checkboxListOfTagsList">
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+        
+
     
+    <div id="generalTagDiv">
 
-    <div id="div-listUser">
+        <div id="div-listTag">
+        </div>
 
-    </div>
+        <div id="div-searchTag">
+            <input type="text" id="tagId" placeholder="Tag Id" />
+            <button type="button" title="Search Tag" id="submit" onclick="findTag();">Search for Tag</button>
 
-    <div id="div-createUser">
-        <input type="text" id="email" placeholder="Email"/>
-        <input type="password" id="password" placeholder="Password"/>
-        <select id="role">
-            <option value="2">Cutomer</option>
-            <option value="1">Employee</option>
-            <option value="0">Sales Administrator</option>
-        </select>
-        <button type="button" title="Create User" id="submit" onclick="createUser();">Create User</button>
-    </div>
-   
-    <div id="div-searchUser">
-        <input type="text" id="userId"/>
-        <button type="button" title="Search User" id="submit" onclick="find();">Search for User</button>
+        </div>
 
-    </div>
+        <div id="div-createTag">
+            <input type="text" id="createTagName" placeholder="Name"></input>
+            <button type="button" title="Edit Tag" id="createTagButton" onclick="createTag();">Create Tag</button>
+        </div>
 
-    <div id="div-specificUser"></div>
-        <div id="div-deleteUser"/>
-            <button type="button" id="deleteButton" onclick="deleteUser();" value="" style="display:block">Delete User</button>
+        <div id="div-specificTag">
+            <div id="div-specificTagInfo"></div>
+            <div id="div-changeTag">
+                <button type="button" id="deleteTagButton" onclick="deleteTag();" value="temp">Delete Tag</button>
+                <button type="button" id="editTagButton" onclick="showEditTag();" value="temp">Edit Tag</button>
+            </div>
+        </div>
+
+        <div id="div-editTag">
+            <input type="text" id="tagName" placeholder="Name"></input>
+            <button type="button" title="Edit Tag" id="editTagButton" onclick="editTag();">Edit Tag</button>
+        </div>
+
+    </div>   
+    
 </div>
+
+
+
