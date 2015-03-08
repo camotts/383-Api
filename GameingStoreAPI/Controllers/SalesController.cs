@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
-    public class SalesController : ApiController
+    public class SalesController : BaseApiController
     {
         private ISaleRepository repo = new SaleRepository();
 

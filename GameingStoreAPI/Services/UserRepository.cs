@@ -69,6 +69,7 @@ namespace GamingStoreAPI.Services
             {
                 modifyUser.Password = Crypto.HashPassword(user.Password);
             }
+            modifyUser.Email = user.Email;
             modifyUser.Role = user.Role;
             db.Entry(modifyUser).State = EntityState.Modified;
         }

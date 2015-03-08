@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
-    public class TagsController : ApiController
+    public class TagsController : BaseApiController
     {
          private ITagRepository repo = new TagRepository();
 

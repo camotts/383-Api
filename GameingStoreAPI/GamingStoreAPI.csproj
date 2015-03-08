@@ -148,6 +148,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\AuthorizationHeaderHandler.cs" />
     <Compile Include="Controllers\ApiKeyController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -177,6 +178,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\DTOS\DTOFactory.cs" />
+    <Compile Include="Models\DTOS\UserDTO.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Role.cs" />
@@ -320,7 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\DTOS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -14,7 +14,7 @@ $(document).ready(function () {
 });
 
 function formatItem(item) {
-    return 'Customer ' + item.ID + ' email: ' + item.Email;
+    return 'Email: ' + item.Email;
 }
 
 function formatSpecific(item) {
@@ -59,7 +59,7 @@ function listUsers() {
             
             // Add a list item for the product.
             $('<li>', { text: formatItem(item) }).attr("Id", "userList" + item.ID).appendTo($('#div-listUser'));
-            
+            console.log(item);
             
             
 

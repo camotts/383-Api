@@ -13,19 +13,26 @@ using GamingStoreAPI.DAL;
 using System.Web.Helpers;
 using System.Security.Cryptography;
 using GamingStoreAPI.Services;
+using GamingStoreAPI.Models.DTOS;
 
 
 namespace GamingStoreAPI.Controllers
 {
-    public class UsersController : ApiController
+    public class UsersController : BaseApiController
     {
         private IUserRepository repo = new UserRepository();
       
         //[Authorize(Roles="")]
         // GET api/Users
-        public IEnumerable<User> GetUsers()
+        public HttpResponseMessage GetUsers()
         {
-            return repo.getListOfUsers();
+            List<UserDTO> ListOfUsers = new List<UserDTO>();
+            foreach(var item in repo.getListOfUsers()){
+
+                ListOfUsers.Add(TheFactory.Create(item));
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ListOfUsers);
         }
 
         [AllowAnonymous]

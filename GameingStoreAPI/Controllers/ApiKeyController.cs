@@ -11,7 +11,7 @@ namespace GamingStoreAPI.Controllers
 {
 
     //Endpoint to acquire APIKey
-    public class ApiKeyController : ApiController
+    public class ApiKeyController : BaseApiController
     {
 
         private IApiKeyRepository repo = new ApiKeyRepository();

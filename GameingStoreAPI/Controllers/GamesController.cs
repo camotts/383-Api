@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
-    public class GamesController : ApiController
+    public class GamesController : BaseApiController
     {
         private IGameRepository repo = new GameRepository();
 
