@@ -30,15 +30,15 @@ namespace GamingStoreAPI.Controllers
 
         [AllowAnonymous]
         // GET api/Users/5
-        public User GetUser(int id)
+        public HttpResponseMessage GetUser(int id)
         {
             User user = repo.getUserById(id);
             if (user == null)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                return Request.CreateResponse(HttpStatusCode.NotFound, "User With Id:" + id + " Not Found");
             }
 
-            return user;
+            return Request.CreateResponse(HttpStatusCode.OK, user); ;
         }
 
         // PUT api/Users/5
