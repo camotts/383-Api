@@ -16,13 +16,20 @@ namespace GamingStoreAPI.Services
         public Models.User getApiKey(string email, string password)
         {
             var user = db.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();
-            if (Crypto.VerifyHashedPassword(user.Password, password) && user != null)
+
+            if (user == null)
+            {
+                return user;
+            }
+
+            if (Crypto.VerifyHashedPassword(user.Password, password))
             {
                 return user;
             }
             else
             {
-                return null;
+                user = null;
+                return user;
             }
         }
 

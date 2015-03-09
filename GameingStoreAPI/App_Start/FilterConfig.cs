@@ -10,7 +10,7 @@ namespace GamingStoreAPI
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-          //GlobalConfiguration.Configuration.MessageHandlers.Add(new AuthorizationHeaderHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new AuthenticationHandler());
         }
     }
 }

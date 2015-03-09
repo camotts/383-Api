@@ -11,6 +11,7 @@ namespace GamingStoreAPI.Services
 
         IEnumerable<Game> getListOfGames();
         Game getGameById(int id);
+        Game getGameByName(string name);
         void createGame(Game game);
         void deleteGame(Game game);
         //string getApiKey();

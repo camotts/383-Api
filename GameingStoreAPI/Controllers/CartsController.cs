@@ -10,12 +10,14 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
+    [Authorize(Roles = "Customer, Employee, StoreAdmin")]
     public class CartsController : BaseApiController
     {
         private ICartRepository repo = new CartRepository();
 
-        //[Authorize(Roles="")]
+        
         // GET api/Games
+        [Authorize(Roles = "Employee, StoreAdmin")]
         public HttpResponseMessage GetListOfCarts()
         {
             List<CartDTO> ListOfCarts = new List<CartDTO>();
@@ -28,22 +30,22 @@ namespace GamingStoreAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ListOfCarts);
         }
 
-        [AllowAnonymous]
         // GET api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage GetCart(int id)
         {
             Cart cart = repo.getCartById(id);
             if (cart == null)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
             CartDTO factoredCart = TheFactory.Create(cart);
 
             return Request.CreateResponse(HttpStatusCode.OK, factoredCart);
-          
         }
 
         // PUT api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PutCart(int id, Cart cart)
         {
             if (!ModelState.IsValid)
@@ -72,7 +74,9 @@ namespace GamingStoreAPI.Controllers
             
         }
 
+
         // POST api/Games
+        [Authorize(Roles="Customer, StoreAdmin")]
         public HttpResponseMessage PostCart(Cart cart)
         {
             if (ModelState.IsValid)
@@ -91,7 +95,9 @@ namespace GamingStoreAPI.Controllers
             }
         }
 
+
         // DELETE api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage DeleteCart(int id)
         {
              Cart cart = repo.getCartById(id);
@@ -112,16 +118,19 @@ namespace GamingStoreAPI.Controllers
             //}
             return Request.CreateResponse(HttpStatusCode.OK, cart);
         }
-        public Cart GetCustomer(int id)
+
+
+
+        public HttpResponseMessage GetCustomer(int id)
         {
-            Cart cart = repo.getCartByCustomerId(id);
+            Cart cart = repo.getCartById(id);
 
             if (cart == null)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return cart;
+            return Request.CreateResponse(HttpStatusCode.OK, cart);
         }
 
 

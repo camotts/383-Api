@@ -203,6 +203,41 @@ function showLogin() {
 }
 
 function loginUser() {
+    var uri = '/api/APIKey';
+    var email = $('#emailLogin').val();
+    var password = $('#passwordLogin').val();
 
+    var ajaxHandler = $.ajax({
+        Type: 'GET',
+        url: uri + '?email=' + email + '&password=' + password,
+    });
+    ajaxHandler.done(function (result) {
+
+        var cookie = document.cookie;
+        console.log(cookie);
+        console.log("logged in?");
+        sessionStorage.setItem("tokenKey", result.xcmps383authenticationid);
+        sessionStorage.setItem("tokenId", result.idcookie);
+        console.log(result.xcmps383authenticationid);
+
+
+        var req = new XMLHttpRequest();
+        console.log(req.getResponseHeader("xcmps383authenticationid"));
+        console.log(req.getResponseHeader("xcmps383authenticationkey"));
+
+        req.open('GET', document.location, false);
+
+        req.send(null);
+
+        var headers = req.getAllResponseHeaders();
+
+        alert(headers);
+    });
+    ajaxHandler.fail(function (xhr, ajaxOptions, thrownError) {
+        console.log(xhr)
+        console.log(ajaxOptions)
+        console.log(thrownError)
+        alert('Fail');
+    });
 
 }

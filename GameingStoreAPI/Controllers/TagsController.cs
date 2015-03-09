@@ -10,11 +10,12 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
+    [Authorize(Roles = "Customer, Employee, StoreAdmin")]
     public class TagsController : BaseApiController
     {
          private ITagRepository repo = new TagRepository();
 
-        //[Authorize(Roles="")]
+        
         // GET api/Tags
          public HttpResponseMessage GetTags()
          {
@@ -28,20 +29,24 @@ namespace GamingStoreAPI.Controllers
              return Request.CreateResponse(HttpStatusCode.OK, ListOfTags);
          }
 
-        [AllowAnonymous]
+        
         // GET api/Tags/5
         public HttpResponseMessage GetTag(int id)
         {
             Tags tag = repo.getTagById(id);
             if (tag == null)
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
            TagDTO factoredTag = TheFactory.Create(tag);
 
             return Request.CreateResponse(HttpStatusCode.OK, factoredTag);
         }
+
+
+
+        [Authorize(Roles = "Employee, StoreAdmin")]
         public HttpResponseMessage PostSale(Tags tag)
         {
             if (ModelState.IsValid)
@@ -60,7 +65,10 @@ namespace GamingStoreAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
+
+
         // PUT api/Sales/5
+        [Authorize(Roles = "Employee, StoreAdmin")]
         public HttpResponseMessage PutTag(int id, Tags tag)
         {
             if (!ModelState.IsValid)
@@ -78,6 +86,9 @@ namespace GamingStoreAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, factoredTag);
         }
+
+
+        [Authorize(Roles = "Employee, StoreAdmin")]
         public HttpResponseMessage DeleteTag(int id)
         {
             Tags tag = repo.getTagById(id);

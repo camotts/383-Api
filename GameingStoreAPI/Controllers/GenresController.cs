@@ -10,12 +10,13 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
+    [Authorize(Roles = "Customer, Employee, StoreAdmin")]
     public class GenresController : BaseApiController
     {
          
         private IGenreRepository repo = new GenreRepository();
 
-        //[Authorize(Roles="")]
+        
         // GET api/Games
         public HttpResponseMessage GetGenres()
         {
@@ -29,7 +30,7 @@ namespace GamingStoreAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ListOfGenres);
         }
 
-        [AllowAnonymous]
+        
         // GET api/Games/5
         public HttpResponseMessage GetGenre(int id)
         {
@@ -46,6 +47,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // PUT api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PutGenre(int id, Genre genre)
         {
             if (!ModelState.IsValid)
@@ -73,11 +75,11 @@ namespace GamingStoreAPI.Controllers
         }
 
         // POST api/Games
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PostGenre(Genre genre)
         {
             if (ModelState.IsValid)
             {
-
                 repo.createGenre(genre);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, genre);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = genre.ID }));
@@ -94,6 +96,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // DELETE api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage DeleteGenre(int id)
         {
             Genre genre = repo.getGenreById(id);

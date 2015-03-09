@@ -18,11 +18,12 @@ using GamingStoreAPI.Models.DTOS;
 
 namespace GamingStoreAPI.Controllers
 {
+
+    [Authorize(Roles = "Employee, StoreAdmin")]
     public class UsersController : BaseApiController
     {
         private IUserRepository repo = new UserRepository();
       
-        //[Authorize(Roles="")]
         // GET api/Users
         public HttpResponseMessage GetUsers()
         {
@@ -35,8 +36,9 @@ namespace GamingStoreAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ListOfUsers);
         }
 
-        [AllowAnonymous]
+        
         // GET api/Users/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage GetUser(int id)
         {
             User user = repo.getUserById(id);
@@ -44,19 +46,15 @@ namespace GamingStoreAPI.Controllers
             {
 
                 return Request.CreateResponse(HttpStatusCode.NotFound, "User With Id:" + id + " Not Found");
-
-              
-
             }
+
             UserDTO factoredUser = TheFactory.Create(user);
 
-
-          
             return Request.CreateResponse(HttpStatusCode.OK, factoredUser);
-
         }
 
         // PUT api/Users/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
@@ -89,6 +87,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // POST api/Users
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PostUser(User user)
         {
             UserDTO factoredUser = TheFactory.Create(user);
@@ -109,6 +108,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // DELETE api/Users/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage DeleteUser(int id)
         {
             User user = repo.getUserById(id);
@@ -132,8 +132,7 @@ namespace GamingStoreAPI.Controllers
 
 
         // APIKey creation method For new users.
-        [HttpGet]
-        public static string GetApiKey()
+        private static string GetApiKey()
         {
             using (var rng = new RNGCryptoServiceProvider())
             {

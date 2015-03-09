@@ -11,11 +11,12 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
+
+    [Authorize(Roles="Customer, Employee, StoreAdmin")]
     public class GamesController : BaseApiController
     {
         private IGameRepository repo = new GameRepository();
 
-        //[Authorize(Roles="")]
         // GET api/Games
         public HttpResponseMessage GetGames()
         {
@@ -29,7 +30,6 @@ namespace GamingStoreAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ListOfGames);
         }
 
-        [AllowAnonymous]
         // GET api/Games/5
         public HttpResponseMessage GetGame(int id)
         {
@@ -45,7 +45,25 @@ namespace GamingStoreAPI.Controllers
             //return game;
         }
 
+
+        // GET api/Games/?name=""
+        public HttpResponseMessage GetGameByName(string name)
+        {
+            Game game = repo.getGameByName(name);
+            if (game == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Game not found");
+                //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+            }
+            GameDTO factoredGame = TheFactory.Create(game);
+
+            return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+            //return game;
+        }
+
+
         // PUT api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
@@ -72,7 +90,9 @@ namespace GamingStoreAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
         }
 
+
         // POST api/Games
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage PostGame(Game game)
         {
             if (ModelState.IsValid)
@@ -93,7 +113,9 @@ namespace GamingStoreAPI.Controllers
             }
         }
 
+
         // DELETE api/Games/5
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage DeleteGame(int id)
         {
             Game game = repo.getGameById(id);

@@ -27,6 +27,14 @@ namespace GamingStoreAPI.Services
             return searchGame;
         }
 
+
+        public Models.Game getGameByName(string name)
+        {
+            Game searchGame = db.Games.Where(g => g.Name.Equals(name)).FirstOrDefault();
+            return searchGame;
+        }
+
+
         //public Models.Game getGameByGenre(int id)
         //{
         //    //Game searchGameByGenre = db.Games.Include("db.Genres").Where();
