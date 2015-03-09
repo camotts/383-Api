@@ -1,4 +1,5 @@
 ﻿using GamingStoreAPI.Models;
+using GamingStoreAPI.Models.DTOS;
 using GamingStoreAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -15,22 +16,31 @@ namespace GamingStoreAPI.Controllers
 
         //[Authorize(Roles="")]
         // GET api/Games
-        public IEnumerable<Cart> GetCarts()
+        public HttpResponseMessage GetListOfCarts()
         {
-            return repo.getListOfCarts();
+            List<CartDTO> ListOfCarts = new List<CartDTO>();
+            foreach (var item in repo.getListOfCarts())
+            {
+
+                ListOfCarts.Add(TheFactory.Create(item));
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ListOfCarts);
         }
 
         [AllowAnonymous]
         // GET api/Games/5
-        public Cart GetCart(int id)
+        public HttpResponseMessage GetCart(int id)
         {
             Cart cart = repo.getCartById(id);
             if (cart == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
+            CartDTO factoredCart = TheFactory.Create(cart);
 
-            return cart;
+            return Request.CreateResponse(HttpStatusCode.OK, factoredCart);
+          
         }
 
         // PUT api/Games/5
@@ -47,6 +57,9 @@ namespace GamingStoreAPI.Controllers
             }
 
             repo.putCart(id, cart);
+            CartDTO factoredCart = TheFactory.Create(cart);
+
+            return Request.CreateResponse(HttpStatusCode.OK, factoredCart);
             //try
             //{
             //    db.SaveChanges();
@@ -56,18 +69,20 @@ namespace GamingStoreAPI.Controllers
             //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             //}
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            
         }
 
         // POST api/Games
-        public HttpResponseMessage PostGame(Cart cart)
+        public HttpResponseMessage PostCart(Cart cart)
         {
             if (ModelState.IsValid)
             {
                 repo.createCart(cart);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, cart);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = cart.ID }));
-                return response;
+                CartDTO factoredCart = TheFactory.Create(cart);
+
+                return Request.CreateResponse(HttpStatusCode.OK, factoredCart);
 
             }
             else

@@ -8,57 +8,57 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-
 namespace GamingStoreAPI.Controllers
 {
-    public class GamesController : BaseApiController
+    public class GenresController : BaseApiController
     {
-        private IGameRepository repo = new GameRepository();
+         
+        private IGenreRepository repo = new GenreRepository();
 
         //[Authorize(Roles="")]
         // GET api/Games
-        public HttpResponseMessage GetGames()
+        public HttpResponseMessage GetGenres()
         {
-            List<GameDTO> ListOfGames = new List<GameDTO>();
-            foreach (var item in repo.getListOfGames())
+            List<GenreDTO> ListOfGenres = new List<GenreDTO>();
+            foreach (var item in repo.getListOfGenres())
             {
 
-                ListOfGames.Add(TheFactory.Create(item));
+                ListOfGenres.Add(TheFactory.Create(item));
 
             }
-            return Request.CreateResponse(HttpStatusCode.OK, ListOfGames);
+            return Request.CreateResponse(HttpStatusCode.OK, ListOfGenres);
         }
 
         [AllowAnonymous]
         // GET api/Games/5
-        public HttpResponseMessage GetGame(int id)
+        public HttpResponseMessage GetGenre(int id)
         {
-            Game game = repo.getGameById(id);
-            if (game == null)
+            Genre genre = repo.getGenreById(id);
+            if (genre == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound,"Game not found");
                 //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            GameDTO factoredGame = TheFactory.Create(game);
+            GenreDTO factoredGenre = TheFactory.Create(genre);
 
-            return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+            return Request.CreateResponse(HttpStatusCode.OK, factoredGenre);
             //return game;
         }
 
         // PUT api/Games/5
-        public HttpResponseMessage PutGame(int id, Game game)
+        public HttpResponseMessage PutGenre(int id, Genre genre)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != game.ID)
+            if (id != genre.ID)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            repo.putGame(id, game);
+            repo.putGenre(id, genre);
             //try
             //{
             //    db.SaveChanges();
@@ -67,24 +67,24 @@ namespace GamingStoreAPI.Controllers
             //{
             //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             //}
-            GameDTO factoredGame = TheFactory.Create(game);
+            GenreDTO factoredGenre = TheFactory.Create(genre);
 
-            return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+            return Request.CreateResponse(HttpStatusCode.OK, factoredGenre);
         }
 
         // POST api/Games
-        public HttpResponseMessage PostGame(Game game)
+        public HttpResponseMessage PostGenre(Genre genre)
         {
             if (ModelState.IsValid)
             {
 
-                repo.createGame(game);
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, game);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = game.ID }));
+                repo.createGenre(genre);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, genre);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = genre.ID }));
                 
-                GameDTO factoredGame = TheFactory.Create(game);
+                GenreDTO factoredGenre = TheFactory.Create(genre);
 
-                return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+                return Request.CreateResponse(HttpStatusCode.OK, factoredGenre);
 
             }
             else
@@ -94,14 +94,14 @@ namespace GamingStoreAPI.Controllers
         }
 
         // DELETE api/Games/5
-        public HttpResponseMessage DeleteGame(int id)
+        public HttpResponseMessage DeleteGenre(int id)
         {
-            Game game = repo.getGameById(id);
-            if (game == null)
+            Genre genre = repo.getGenreById(id);
+            if (genre == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            repo.deleteGame(game);
+            repo.deleteGenre(genre);
             
 
             //try
@@ -112,7 +112,7 @@ namespace GamingStoreAPI.Controllers
             //{
             //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             //}
-            return Request.CreateResponse(HttpStatusCode.OK, game);
+            return Request.CreateResponse(HttpStatusCode.OK, genre);
         }
 
 

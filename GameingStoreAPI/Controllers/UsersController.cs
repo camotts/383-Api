@@ -42,19 +42,18 @@ namespace GamingStoreAPI.Controllers
             User user = repo.getUserById(id);
             if (user == null)
             {
-<<<<<<< HEAD
+
                 return Request.CreateResponse(HttpStatusCode.NotFound, "User With Id:" + id + " Not Found");
-=======
-                return Request.CreateResponse(HttpStatusCode.NotFound, "User not Found");
->>>>>>> c4942b80ff0d323eaba4788dc2a45556ffeeeaf5
+
+              
+
             }
             UserDTO factoredUser = TheFactory.Create(user);
 
-<<<<<<< HEAD
-            return Request.CreateResponse(HttpStatusCode.OK, user); ;
-=======
+
+          
             return Request.CreateResponse(HttpStatusCode.OK, factoredUser);
->>>>>>> c4942b80ff0d323eaba4788dc2a45556ffeeeaf5
+
         }
 
         // PUT api/Users/5
@@ -79,20 +78,28 @@ namespace GamingStoreAPI.Controllers
             //{
             //    return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             //}
+            UserDTO factoredUser = TheFactory.Create(user);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, factoredUser);
+
+
+
         }
 
         // POST api/Users
         public HttpResponseMessage PostUser(User user)
         {
-
+            UserDTO factoredUser = TheFactory.Create(user);
             if (ModelState.IsValid)
             {
                 repo.createUser(user);
                  HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, user);
                  response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = user.ID }));
-                 return response;
+                 return Request.CreateResponse(HttpStatusCode.OK, factoredUser);
+
+
                 
             }
             else

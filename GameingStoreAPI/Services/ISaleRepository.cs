@@ -12,6 +12,8 @@ namespace GamingStoreAPI.Services
         IEnumerable<Sale> getListOfSales();
         Sale getSaleById(int id);
         Sale getSaleByEmployeeId(int id);
-
+        void createSale(Sale sale);
+        void putSale(int id, Sale sale);
+        void deleteSale(Sale sale);
     }
 }

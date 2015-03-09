@@ -151,6 +151,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
@@ -178,8 +179,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\DTOS\CartDTO.cs" />
     <Compile Include="Models\DTOS\DTOFactory.cs" />
     <Compile Include="Models\DTOS\GameDTO.cs" />
+    <Compile Include="Models\DTOS\GenreDTO.cs" />
+    <Compile Include="Models\DTOS\SaleDTO.cs" />
+    <Compile Include="Models\DTOS\TagDTO.cs" />
     <Compile Include="Models\DTOS\UserDTO.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -191,9 +196,11 @@
     <Compile Include="Services\ApiKeyRepository.cs" />
     <Compile Include="Services\CartRepository.cs" />
     <Compile Include="Services\GameRepository.cs" />
+    <Compile Include="Services\GenreRepository.cs" />
     <Compile Include="Services\IApiKeyRepository.cs" />
     <Compile Include="Services\ICartRepository.cs" />
     <Compile Include="Services\IGameRepository.cs" />
+    <Compile Include="Services\IGenreRepository.cs" />
     <Compile Include="Services\ISaleRepository.cs" />
     <Compile Include="Services\ITagRepository.cs" />
     <Compile Include="Services\IUserRepository.cs" />

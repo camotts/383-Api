@@ -45,8 +45,56 @@ namespace GamingStoreAPI.Models.DTOS
                 Tags = game.Tags,
                 Genres = game.Genres
             };
-
         }
 
+             public SaleDTO Create(Sale sale)
+        {
+
+            return new SaleDTO()
+            {
+                Url = urlbuilder.Link("GamingStoreRoute", new { id = sale.ID }),
+                TotalAmount = sale.TotalAmount,
+                Date= sale.Date
+            };
+             }
+             public TagDTO Create(Tags tag)
+             {
+                 return new TagDTO(){
+
+                
+                 Url = urlbuilder.Link("GamingStoreRoute", new { id = tag.ID }),
+                 Name = tag.Name
+          };
     }
-}
+             public CartDTO Create(Cart cart)
+             {
+                 return new CartDTO()
+                 {
+
+
+                     Url = urlbuilder.Link("GamingStoreRoute", new { id = cart.ID }),
+                     Games = cart.Games
+                   
+                 };
+             }
+
+             public GenreDTO Create(Genre genre)
+             {
+                 return new GenreDTO()
+                 {
+
+
+                     Url = urlbuilder.Link("GamingStoreRoute", new { id = genre.ID }),
+                     Type =genre.Type
+                 };
+             }
+
+               
+    }
+                 
+                 
+                 
+                
+        }
+
+    

@@ -10,5 +10,8 @@ namespace GamingStoreAPI.Services
     {
         IEnumerable<Tags> getListOfTags();
         Tags getTagById(int id);
+        void createTag(Tags tag);
+        void putTag(int id, Tags tag);
+        void deleteTag(Tags tag);
     }
 }

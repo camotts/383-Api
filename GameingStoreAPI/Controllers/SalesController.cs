@@ -1,4 +1,5 @@
 ﻿using GamingStoreAPI.Models;
+using GamingStoreAPI.Models.DTOS;
 using GamingStoreAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,21 @@ namespace GamingStoreAPI.Controllers
 
         //[Authorize(Roles="")]
         // GET api/Sales
-        public IEnumerable<Sale> GetSales()
+        public HttpResponseMessage GetListOfSales()
         {
-            return repo.getListOfSales();
+            List<SaleDTO> ListOfSales = new List<SaleDTO>();
+            foreach (var item in repo.getListOfSales())
+            {
+
+                ListOfSales.Add(TheFactory.Create(item));
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ListOfSales);
         }
 
         [AllowAnonymous]
         // GET api/Sales/5
-        public Sale GetSale(int id)
+        public HttpResponseMessage GetSale(int id)
         {
             Sale sale = repo.getSaleById(id);
             if (sale == null)
@@ -30,20 +38,83 @@ namespace GamingStoreAPI.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return sale;
+            SaleDTO factoredSale = TheFactory.Create(sale);
+
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, factoredSale);
+
+
+          
         }
 
-       // public Sale GetEmployee(int employeeid)
-       // {
-          //  Sale sale = repo.getSaleByEmployeeId(employeeid);
 
-         //   if (sale == null)
-           // {
-           //   throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
-           // }
+        public HttpResponseMessage PostSale(Sale sale)
+        {
+            if (ModelState.IsValid)
+            {
 
-           // return sale;
-       // }
+                repo.createSale(sale);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, sale);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = sale.ID }));
+                SaleDTO factoredSale = TheFactory.Create(sale);
+
+
+
+                return Request.CreateResponse(HttpStatusCode.OK, factoredSale);
+
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+        }
+         // PUT api/Sales/5
+        public HttpResponseMessage PutSale(int id, Sale sale)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            if (id != sale.ID)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            repo.putSale(id,sale);
+
+          
+            SaleDTO factoredSale = TheFactory.Create(sale);
+
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, factoredSale);
+        }
+
+        public Sale GetEmployee(int employeeid)
+        {
+            Sale sale = repo.getSaleByEmployeeId(employeeid);
+
+            if (sale == null)
+            {
+              throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+            }
+
+            return sale;
+        }
+         public HttpResponseMessage DeleteSale(int id)
+        {
+            Sale sale = repo.getSaleById(id);
+            if (sale == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            repo.deleteSale(sale);
+
+            return Request.CreateResponse(HttpStatusCode.OK, sale);
+        }
+
+
 
         }
     }
