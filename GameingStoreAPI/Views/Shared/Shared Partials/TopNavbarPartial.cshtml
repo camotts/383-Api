@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="searchUBox();">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="searchTagBox();">
                         Tags <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -62,13 +62,14 @@
                 </div>
             }
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"></a>
+            <div class="nav navbar-brand float-right">
+                <div class="input-group">
                     <input type="text" id="globalSearchBox" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
                         <button class="btn btn-default" id="globalSearchBoxButton" type="button">Go!</button>
-                    </span></li>
-            </ul>
+                    </span>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

@@ -345,7 +345,7 @@ function editGame() {
     var inventory = $('#gameInventoryAmmount').val();
 
     function findTag(id) {
-        var tag;
+        var tag = {ID:"", Name:"", Games:""};
         alert(tagUri + '/' + id);
         var ajaxHandler = $.ajax({
             Type: 'GET',
@@ -354,9 +354,11 @@ function editGame() {
         });
         ajaxHandler.done(function (data) {
 
-            tag = data;
+            tag.Name = data.Name;
+            tag.Games = data.Games;
+            tag.ID = data.Url.substr(data.Url.length - 1);
             console.log(tag);
-            return data;
+            //return data;
         })
         ajaxHandler.fail(function (jqXHR, textStatus, err) {
             console.log(jqXHR)
