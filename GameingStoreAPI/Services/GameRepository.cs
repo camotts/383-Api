@@ -30,7 +30,7 @@ namespace GamingStoreAPI.Services
 
         public Models.Game getGameByName(string name)
         {
-            Game searchGame = db.Games.Where(g => g.Name.Equals(name)).FirstOrDefault();
+            Game searchGame = db.Games.Where(g => g.Name.Contains(name)).FirstOrDefault();
             return searchGame;
         }
 

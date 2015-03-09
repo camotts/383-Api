@@ -18,6 +18,7 @@ namespace GamingStoreAPI.Controllers
         private IGameRepository repo = new GameRepository();
 
         // GET api/Games
+        [AllowAnonymous]
         public HttpResponseMessage GetGames()
         {
             List<GameDTO> ListOfGames = new List<GameDTO>();
@@ -47,6 +48,7 @@ namespace GamingStoreAPI.Controllers
 
 
         // GET api/Games/?name=""
+        [AllowAnonymous]
         public HttpResponseMessage GetGameByName(string name)
         {
             Game game = repo.getGameByName(name);
@@ -64,6 +66,7 @@ namespace GamingStoreAPI.Controllers
 
         // PUT api/Games/5
         [Authorize(Roles = "StoreAdmin")]
+        [AllowAnonymous]
         public HttpResponseMessage PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)

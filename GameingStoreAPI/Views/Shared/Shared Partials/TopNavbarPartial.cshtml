@@ -32,7 +32,7 @@
             else
             {
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="searchUserBox();">
                         User <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="searchGameBox();">
                         Games <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="searchUBox();">
                         Tags <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -61,6 +61,14 @@
                     </ul>
                 </div>
             }
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"></a>
+                    <input type="text" id="globalSearchBox" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="globalSearchBoxButton" type="button">Go!</button>
+                    </span></li>
+            </ul>
         </div>
     </div>
 </div>

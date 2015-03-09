@@ -10,8 +10,13 @@ $(document).ready(function () {
     $('div[id^="div-"]').hide();
 
     listUsers();
-
+    searchUserBox();
 });
+
+function searchUserBox() {
+    $('#globalSearchBoxButton').attr('onclick', "find();");
+    $('#globalSearchBox').attr('placeholder', "Search for a User");
+}
 
 function formatItem(item) {
     return 'Email: ' + item.Email;
@@ -23,7 +28,7 @@ function formatSpecific(item) {
 
 function find() {
     
-    var id = $('#userId').val();
+    var id = $('#globalSeachBox').val();
     $.getJSON(userUri + '/' + id)
         .done(function (data) {
 
@@ -62,7 +67,8 @@ function listUsers() {
             $('<a>', { text: item.Email }).attr("data-toggle", "collapse").attr("data-parent", "#userListAccordion").attr("href", "#collapse" + item.Url.substr(item.Url.length - 1)).attr('aria-labelledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth4").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth3'));
             $('<div>').attr('id', "collapse" + item.Url.substr(item.Url.length - 1)).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth1'));
             $('<div>', { text: formatItem(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            
+            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditUser(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
+            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteUser(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
             
 
         });
@@ -152,8 +158,8 @@ function deleteUser() {
     listUsers();
 }
 
-function showEditUser() {
-
+function showEditUser(id) {
+    $('#editButton').attr('value', id);
     $('div[id^="div-"]').hide();
     $('#div-editUser').show();
 }

@@ -9,6 +9,5 @@ namespace GamingStoreAPI.Models.DTOS
     {
         public string Url { get; set; }
         public string Type { get; set; }
-        public List<Game> Games { get; set; }
     }
 }

@@ -36,6 +36,11 @@ function showListTags() {
     $('#div-specificTag').show();
 }
 
+function searchTagBox() {
+    $('#globalSearchBoxButton').attr('onclick', "findTag();");
+    $('#globalSearchBox').attr('placeholder', "Search for a Tag");
+}
+
 function formatTag(tag) {
     var text = 'Tag # ' + tag.ID + '\nName: ' + tag.Name;
 
@@ -45,13 +50,11 @@ function formatTag(tag) {
 function findTag() {
 
 
-    var id = $('#tagId').val();
+    var id = $('#globalSearchBox').val();
     $.getJSON(tagUri + '/' + id)
         .done(function (data) {
 
             $('#div-specificTagInfo').html(formatTag(data));
-            $('#deleteTagButton').attr('value', data.ID.toString());
-            $('#editTagButton').attr('value', data.ID.toString());
 
         })
         .fail(function (jqXHR, textStatus, err) {
