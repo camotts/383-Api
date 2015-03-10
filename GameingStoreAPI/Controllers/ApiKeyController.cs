@@ -32,15 +32,9 @@ namespace GamingStoreAPI.Controllers
 
             var response = Request.CreateResponse(HttpStatusCode.OK);
 
-            var idcookie = new CookieHeaderValue("xcmps383authenticationid", user.ID.ToString());
-            idcookie.Domain = Request.RequestUri.Host;
-            idcookie.Path = "/";
-
-            var keycookie = new CookieHeaderValue("xcmps383authenticationkey", user.APIKey);
-            keycookie.Domain = Request.RequestUri.Host;
-            keycookie.Path = "/";
-
-            response.Headers.AddCookies(new CookieHeaderValue[] {idcookie, keycookie});
+            response.Headers.Add("xcmps383authenticationid", user.ID.ToString());
+            response.Headers.Add("xcmps383authenticationkey", user.APIKey);
+           
             return response;
         } 
 

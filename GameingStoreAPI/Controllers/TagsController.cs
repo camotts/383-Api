@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace GamingStoreAPI.Controllers
 {
-    [Authorize(Roles = "Customer, Employee, StoreAdmin")]
+    [Authorize(Roles = "Employee, StoreAdmin")]
     public class TagsController : BaseApiController
     {
          private ITagRepository repo = new TagRepository();
@@ -46,8 +46,8 @@ namespace GamingStoreAPI.Controllers
 
 
 
-        [Authorize(Roles = "Employee, StoreAdmin")]
-        public HttpResponseMessage PostSale(Tags tag)
+        [Authorize(Roles = "StoreAdmin")]
+        public HttpResponseMessage PostTags(Tags tag)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace GamingStoreAPI.Controllers
         }
 
 
-        [Authorize(Roles = "Employee, StoreAdmin")]
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage DeleteTag(int id)
         {
             Tags tag = repo.getTagById(id);

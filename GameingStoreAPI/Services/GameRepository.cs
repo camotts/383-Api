@@ -43,7 +43,40 @@ namespace GamingStoreAPI.Services
 
         //POST 
         public void createGame(Models.Game game)
-        {          
+        {
+   
+            List<Tags> tags = new List<Tags>();
+            List<Genre> genres = new List<Genre>();
+
+            foreach (Tags tag in game.Tags)
+            {
+                var duplicate = db.Tags.FirstOrDefault(t => t.Name.Equals(tag.Name));
+                if (duplicate.Name != null)
+                {
+                    tags.Add(duplicate);
+                }
+                else
+                {
+                    tags.Add(tag);
+                }
+              
+            }
+
+            foreach (Genre genre in game.Genres)
+            {
+                var duplicate = db.Genres.FirstOrDefault(g => g.Type.Equals(genre.Type));
+                if (duplicate.Type != null)
+                {
+                    genres.Add(duplicate);
+                }
+                else
+                {
+                    genres.Add(genre);
+                }
+              
+            }
+                game.Tags = tags;
+                game.Genres = genres;
                 db.Games.Add(game);
                 db.SaveChanges();   
         }
@@ -63,10 +96,31 @@ namespace GamingStoreAPI.Services
         {
             Game modifyGame = getGameById(id);
             modifyGame.Name = game.Name;
-            modifyGame.Genres = game.Genres;
             modifyGame.Price = game.Price;
             modifyGame.InventoryCount = game.InventoryCount;
-            modifyGame.Tags = game.Tags;
+            List<Tags> tags = new List<Tags>();
+            List<Genre> genres = new List<Genre>();
+
+            foreach (Tags tag in game.Tags)
+            {
+                var duplicate = db.Tags.FirstOrDefault(t => t.Name.Equals(tag.Name));
+                if (duplicate == null)
+                {
+                    modifyGame.Tags = game.Tags;
+                }
+                
+            }
+
+            foreach (Genre genre in game.Genres)
+            {
+                var duplicate = db.Genres.FirstOrDefault(g => g.Type.Equals(genre.Type));
+                if (duplicate == null)
+                {
+                    modifyGame.Genres = game.Genres;
+                }
+                
+            }
+
             modifyGame.ReleaseDate = game.ReleaseDate;
             db.Entry(modifyGame).State = EntityState.Modified;
             db.SaveChanges();

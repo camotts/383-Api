@@ -32,6 +32,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // GET api/Games/5
+        [AllowAnonymous]
         public HttpResponseMessage GetGame(int id)
         {
             Game game = repo.getGameById(id);
@@ -66,7 +67,6 @@ namespace GamingStoreAPI.Controllers
 
         // PUT api/Games/5
         [Authorize(Roles = "StoreAdmin")]
-        [AllowAnonymous]
         public HttpResponseMessage PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)
