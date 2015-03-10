@@ -274,6 +274,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Custom Scripts\Bootswatch.js" />
     <Content Include="Scripts\Custom Scripts\Game.js" />
+    <Content Include="Scripts\Custom Scripts\Genres.js" />
     <Content Include="Scripts\Custom Scripts\Tags.js" />
     <Content Include="Scripts\Custom Scripts\User.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

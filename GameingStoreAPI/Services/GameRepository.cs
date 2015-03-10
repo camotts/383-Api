@@ -28,9 +28,9 @@ namespace GamingStoreAPI.Services
         }
 
 
-        public Models.Game getGameByName(string name)
+        public List<Models.Game> getGameByName(string name)
         {
-            Game searchGame = db.Games.Where(g => g.Name.Contains(name)).FirstOrDefault();
+            List<Game> searchGame = db.Games.Where(g => g.Name.Contains(name)).ToList();
             return searchGame;
         }
 

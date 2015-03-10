@@ -44,6 +44,25 @@
             </select>
             <button type="button" title="Create User" id="edit" onclick="editUser();">Edit User</button>
         </div>
+
+        <div id="div-loginUser">
+
+                
+                <table border="0" align="center">
+                <tr>
+                    <td>
+                        <form name="login" action="" method="post" accept-charset="utf-8">
+                            <label for="email">Your e-mail: </label>
+                            <input type="email" id="emailLogin" name="email" placeholder="yourname@email.com">
+                            <label for="password">Password: </label>
+                            <input type="password" id="passwordLogin" name="password" placeholder="Password">
+                            <input type="button" value="Login" onclick="loginUser();">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
 
     <div id="generalGameDiv">
@@ -97,6 +116,8 @@
     <div id="generalTagDiv">
 
         <div id="div-listTag">
+            <div class="panel-group" id="tagListAccordion" role="tablist" aria-multiselectable="true">
+        </div>
         </div>
 
         <div id="div-searchTag">
@@ -123,9 +144,43 @@
             <button type="button" title="Edit Tag" id="editTagButton" onclick="editTag();">Edit Tag</button>
         </div>
 
-    </div>   
-    
+    </div>  
+
+        <div id="generalGenreDiv">
+
+            <div id="div-listGenre">
+                <div class="panel-group" id="tagListAccordion" role="tablist" aria-multiselectable="true">
+            </div>
+            </div>
+
+            <div id="div-searchGenre">
+                <input type="text" id="genreId" placeholder="Genre Id" />
+                <button type="button" title="Search Genre" id="submit" onclick="findGenre();">Search for Genre</button>
+
+            </div>
+
+            <div id="div-createGenre">
+                <input type="text" id="createGenreName" placeholder="Name"></input>
+                <button type="button" title="Edit Genre" id="createGenreButton" onclick="createGenre();">Create Genre</button>
+            </div>
+
+            <div id="div-specificGenre">
+                <div id="div-specificGenreInfo"></div>
+                <div id="div-changeGenre">
+                    <button type="button" id="deleteGenreButton" onclick="deletegenre();" value="temp">Delete Genre</button>
+                    <button type="button" id="editGenreButton" onclick="showEditGenre();" value="temp">Edit Genre</button>
+                </div>
+            </div>
+
+            <div id="div-editGenre">
+                <input type="text" id="genreName" placeholder="Name"></input>
+                <button type="button" title="Edit Genre" id="editTagButton" onclick="editGenre();">Edit Genre</button>
+            </div>
+
+        </div> 
 </div>
+    
+
 
 
 

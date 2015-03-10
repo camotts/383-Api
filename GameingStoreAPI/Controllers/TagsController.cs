@@ -17,6 +17,7 @@ namespace GamingStoreAPI.Controllers
 
         
         // GET api/Tags
+        [AllowAnonymous]
          public HttpResponseMessage GetTags()
          {
              List<TagDTO> ListOfTags = new List<TagDTO>();
@@ -31,6 +32,7 @@ namespace GamingStoreAPI.Controllers
 
         
         // GET api/Tags/5
+        [AllowAnonymous]
         public HttpResponseMessage GetTag(int id)
         {
             Tags tag = repo.getTagById(id);

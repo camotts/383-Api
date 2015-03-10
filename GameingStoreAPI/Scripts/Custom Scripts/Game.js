@@ -13,11 +13,13 @@ var gameTags = function loadGameTags() {
 
         sessionStorage.setItem("numTags", result.length);
 
-        
-        $.each(result, function (key, item) {
 
+        $.each(result, function (key, item) {
+            var str = item.Url;
+            var split = str.split("/");
+            var id = split[split.length - 1];
             // Add a list item for the product.
-            $('<li>',{ text: item.Name}).attr('class', "list-group-item").attr('style', "cursor: pointer;").appendTo($('#checkboxListOfTagsList'));
+            $('<li>', { text: item.Name }).attr('value', item.Name).attr('id', "tagCheckList" + id).attr('class', "list-group-item").attr('style', "cursor: pointer;").appendTo($('#checkboxListOfTagsList'));
 
 
         });
@@ -48,27 +50,27 @@ var checkControl = function checkboxControl() {
         var $widget = $(this),
 
             $checkbox = $('<input type="checkbox" class="hidden"/>');
-            
 
-            color = ($widget.data('color') ? $widget.data('color') : "primary"),
 
-            style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+        color = ($widget.data('color') ? $widget.data('color') : "primary"),
 
-            settings = {
+        style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
 
-                on: {
+        settings = {
 
-                    icon: 'glyphicon glyphicon-check'
+            on: {
 
-                },
+                icon: 'glyphicon glyphicon-check'
 
-                off: {
+            },
 
-                    icon: 'glyphicon glyphicon-unchecked'
+            off: {
 
-                }
+                icon: 'glyphicon glyphicon-unchecked'
 
-            };
+            }
+
+        };
 
 
 
@@ -214,15 +216,18 @@ function listGames() {
     });
     ajaxHandler.done(function (result) {
         $.each(result, function (key, item) {
+            var str = item.Url;
+            var split = str.split("/");
+            var id = split[split.length - 1];
             // Add a list item for the product.
-            $('<div>').attr('class', "panel panel-default").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth1").attr('aria-expanded', "false").appendTo($('#gameListAccordion'));
-            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth2").attr('aria-expanded', "false").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth1'));
-            $('<h4>').attr('class', "panel-title").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth3").attr('aria-expanded', "false").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth2'));
-            $('<a>', { text: item.Name }).attr("data-toggle", "collapse").attr("data-parent", "#gameListAccordion").attr("href", "#collapse" + item.Url.substr(item.Url.length - 1)).attr('aria-labelledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").attr('id', "game" + item.Url.substr(item.Url.length - 1) + "depth4").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth3'));
-            $('<div>').attr('id', "collapse" + item.Url.substr(item.Url.length - 1)).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").appendTo($('#game' + item.Url.substr(item.Url.length - 1) + 'depth1'));
-            $('<div>', { html: formatGame(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditGame(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteGame(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
+            $('<div>').attr('class', "panel panel-default").attr('id', "game" + id + "depth1").attr('aria-expanded', "false").appendTo($('#gameListAccordion'));
+            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "game" + id + "depth2").attr('aria-expanded', "false").appendTo($('#game' + id + 'depth1'));
+            $('<h4>').attr('class', "panel-title").attr('id', "game" + id + "depth3").attr('aria-expanded', "false").appendTo($('#game' + id + 'depth2'));
+            $('<a>', { text: item.Name }).attr("data-toggle", "collapse").attr("data-parent", "#gameListAccordion").attr("href", "#collapseGame" + id).attr('aria-labelledby', "#game' + id + 'depth3").attr('aria-expanded', "false").attr('id', "game" + id + "depth4").appendTo($('#game' + id + 'depth3'));
+            $('<div>').attr('id', "collapseGame" + id).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + id).attr('aria-expanded', "false").appendTo($('#game' + id + 'depth1'));
+            $('<div>', { html: formatGame(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapseGame' + id);
+            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditGame(" + id + ");").appendTo('#collapseGame' + id);
+            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteGame(" + id + ");").appendTo('#collapseGame' + id);
 
         });
     });
@@ -264,7 +269,7 @@ function findGame() {
 
     var uri;
     var id = $('#globalSearchBox').val();
-    if (isNaN(id)){
+    if (isNaN(id)) {
         console.log("Oh, this is a string");
         uri = gameUri + '/?name=' + id;
     } else {
@@ -276,8 +281,14 @@ function findGame() {
     $.getJSON(uri)
         .done(function (data) {
             console.log(data);
-            $('#div-specificGameInfo').html(formatSpecificGame(data));
+            $.each(data, function (key, item) {
 
+                var str = item.Url;
+                var split = str.split("/");
+                var id = split[split.length - 1];
+                $('<div>', { html: formatSpecificGame(item) }).attr('class', "").attr('id', "div-specificGame' + id + 'Info").attr('aria-expanded', "false").appendTo($('#div-specificGameInfo'));
+                //$('#div-specificGameInfo').append('<div>', { html: formatSpecificGame(item) }).attr('id', 'div-specificGame' + id + 'Info');
+            });
 
         })
         .fail(function (jqXHR, textStatus, err) {
@@ -288,13 +299,13 @@ function findGame() {
 }
 
 function formatSpecificGame(game) {
-    var text = 'Game # ' + game.ID + '\nName: ' + game.Name + '\n\tRelease Date: ' + game.ReleaseDate + '\n\tPrice: ' + game.Price;
+    var text = '\nName: ' + game.Name + '\n\tRelease Date: ' + game.ReleaseDate + '\n\tPrice: ' + game.Price;
 
     return text = text.replace(/\r?\n/g, '<br />');
 }
 
-function deleteGame() {
-    var id = $('#deleteGameButton').attr('value');
+function deleteGame(id) {
+    //var id = $('#deleteGameButton').attr('value');
 
     var ajaxHandler = $.ajax({
         type: 'DELETE',
@@ -321,7 +332,7 @@ function deleteGame() {
 
     });
 
-    
+
 }
 
 function showEditGame(id) {
@@ -336,7 +347,7 @@ function showEditGame(id) {
 
 function editGame() {
 
-    alert(document.querySelectorAll('input[type="checkbox"]:checked').length);
+    console.log(document.querySelectorAll('input[type="checkbox"]:checked').length);
     var id = $('#editGameButton').attr('value');
 
     var name = $('#gameName').val();
@@ -345,18 +356,17 @@ function editGame() {
     var inventory = $('#gameInventoryAmmount').val();
 
     function findTag(id) {
-        var tag = {ID:"", Name:"", Games:""};
-        alert(tagUri + '/' + id);
+        var tag = { ID: "", Name: "", Games: "" };
+        console.log(tagUri + '/' + id);
         var ajaxHandler = $.ajax({
             Type: 'GET',
             url: tagUri + '/' + id,
-            async: false
+            async: false,
+            timeout: 20
         });
         ajaxHandler.done(function (data) {
 
             tag.Name = data.Name;
-            tag.Games = data.Games;
-            tag.ID = data.Url.substr(data.Url.length - 1);
             console.log(tag);
             //return data;
         })
@@ -374,27 +384,30 @@ function editGame() {
     var tags = [];
     for (var i = 1; i <= count; i++) {
         if ($('#gameList' + i).attr('class') === 'state-icon glyphicon glyphicon-check') {
-            console.log("meh");
-            result = findTag(i);
+            console.log(i);
+            result = $('#tagCheckList' + i).attr('value');
             tags.push(result);
             console.log(result);
-            
+
         }
     }
 
 
-    alert(tags);
+    console.log(tags);
     var ajaxHandler = $.ajax({
         type: 'Put',
         url: gameUri + '/' + id,
         dataType: 'json',
+        async: false,
         data: {
             'ID': id,
             'Name': name,
             'ReleaseDate': releasedate,
             'Price': price,
             'InventoryCount': inventory,
-            'Tags': tags
+            'Tags': tags,
+            // 'Genres': null,
+            timeout: 5000
         },
     });
 

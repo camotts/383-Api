@@ -1,4 +1,6 @@
-﻿var userUri = '/api/users';
+﻿/// <reference path="Game.js" />
+
+var userUri = '/api/users';
 var gameUri = '/api/games';
 var genreUri = '/api/genres';
 var tagUri = '/api/tags';
@@ -9,7 +11,7 @@ $(document).ready(function () {
 
     $('div[id^="div-"]').hide();
 
-    listUsers();
+    showLogin();
     searchUserBox();
 });
 
@@ -61,14 +63,18 @@ function listUsers() {
 
         $.each(result, function (key, item) {            
             // Add a list item for the product.
-            $('<div>').attr('class', "panel panel-default").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth1").attr('aria-expanded', "false").appendTo($('#userListAccordion'));
-            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth2").attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth1'));
-            $('<h4>').attr('class', "panel-title").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth3").attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth2'));
-            $('<a>', { text: item.Email }).attr("data-toggle", "collapse").attr("data-parent", "#userListAccordion").attr("href", "#collapse" + item.Url.substr(item.Url.length - 1)).attr('aria-labelledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").attr('id', "user" + item.Url.substr(item.Url.length - 1) + "depth4").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth3'));
-            $('<div>').attr('id', "collapse" + item.Url.substr(item.Url.length - 1)).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").appendTo($('#user' + item.Url.substr(item.Url.length - 1) + 'depth1'));
-            $('<div>', { text: formatItem(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditUser(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteUser(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
+            var str = item.Url;
+            var split = str.split("/");
+            var id = split[item.Url.substr(item.Url.length - 1)];
+            console.log(id);
+            $('<div>').attr('class', "panel panel-default").attr('id', "user" + id + "depth1").attr('aria-expanded', "false").appendTo($('#userListAccordion'));
+            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "user" + id + "depth2").attr('aria-expanded', "false").appendTo($('#user' + id + 'depth1'));
+            $('<h4>').attr('class', "panel-title").attr('id', "user" + id + "depth3").attr('aria-expanded', "false").appendTo($('#user' + id + 'depth2'));
+            $('<a>', { text: item.Email }).attr("data-toggle", "collapse").attr("data-parent", "#userListAccordion").attr("href", "#collapse" + id).attr('aria-labelledby', "heading" + id).attr('aria-expanded', "false").attr('id', "user" + id + "depth4").appendTo($('#user' + id + 'depth3'));
+            $('<div>').attr('id', "collapse" + id).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + id).attr('aria-expanded', "false").appendTo($('#user' + id + 'depth1'));
+            $('<div>', { text: formatItem(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + id);
+            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditUser(" + id + ");").appendTo('#collapse' + id);
+            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteUser(" + id + ");").appendTo('#collapse' + id);
             
 
         });
@@ -245,5 +251,5 @@ function loginUser() {
         console.log(thrownError)
         alert('Fail');
     });
-
+    showListGames();
 }

@@ -34,6 +34,7 @@ namespace GamingStoreAPI.Controllers
         // GET api/Games/5
         public HttpResponseMessage GetGame(int id)
         {
+            List<GameDTO> gamelist = new List<GameDTO>();
             Game game = repo.getGameById(id);
             if (game == null)
             {
@@ -41,8 +42,8 @@ namespace GamingStoreAPI.Controllers
                 //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
             GameDTO factoredGame = TheFactory.Create(game);
-
-            return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+            gamelist.Add(factoredGame);
+            return Request.CreateResponse(HttpStatusCode.OK, gamelist);
             //return game;
         }
 
@@ -51,15 +52,20 @@ namespace GamingStoreAPI.Controllers
         [AllowAnonymous]
         public HttpResponseMessage GetGameByName(string name)
         {
-            Game game = repo.getGameByName(name);
+            List<GameDTO> gamelist = new List<GameDTO>();
+            List<Game> game = repo.getGameByName(name);
             if (game == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Game not found");
                 //throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            GameDTO factoredGame = TheFactory.Create(game);
+            foreach(Game factoredGame in game)
+            {
+                gamelist.Add(TheFactory.Create(factoredGame));
+            }
 
-            return Request.CreateResponse(HttpStatusCode.OK, factoredGame);
+
+            return Request.CreateResponse(HttpStatusCode.OK, gamelist);
             //return game;
         }
 

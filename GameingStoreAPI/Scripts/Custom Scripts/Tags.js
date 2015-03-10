@@ -1,5 +1,5 @@
 ﻿function listTags() {
-
+    console.log("Please");
     //$('list').remove();
     $('li[id^="tagList"]').remove();
     var ajaxHandler = $.ajax({
@@ -8,15 +8,29 @@
     });
     ajaxHandler.done(function (result) {
         $.each(result, function (key, item) {
+            var str = item.Url;
+            console.log(str);
+            var split = str.split("/");
+            var id = split[split.length - 1];
+            console.log(id);
             // Add a list item for the product.
-            $('<li>', { html: formatTag(item) }).attr("Id", "tagList" + item.ID).appendTo($('#div-listTag'));
+            $('<div>').attr('class', "panel panel-default").attr('id', "tag" + id + "depth1").attr('aria-expanded', "false").appendTo($('#tagListAccordion'));
+            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "tag" + id + "depth2").attr('aria-expanded', "false").appendTo($('#tag' + id + 'depth1'));
+            $('<h4>').attr('class', "panel-title").attr('id', "tag" + id + "depth3").attr('aria-expanded', "false").appendTo($('#tag' + id + 'depth2'));
+            $('<a>', { text: item.Name }).attr("data-toggle", "collapse").attr("data-parent", "#tagListAccordion").attr("href", "#collapseTag" + id).attr('aria-labelledby', '#tag' + id + 'depth3').attr('aria-expanded', "false").attr('id', "tag" + id + "depth4").appendTo($('#tag' + id + 'depth3'));
+            $('<div>').attr('id', "collapseTag" + id).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + id).attr('aria-expanded', "false").appendTo($('#tag' + id + 'depth1'));
+            $('<div>').attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapseTag' + id);
+            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditTag(" + id + ");").appendTo('#collapseTag' + id);
+            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteTag(" + id + ");").appendTo('#collapseTag' + id);
+
+            //$('<li>', { html: formatTag(item) }).attr("Id", "tagList" + item.ID).appendTo($('#div-listTag'));
         });
     });
     ajaxHandler.fail(function (xhr, ajaxOptions, thrownError) {
         console.log(xhr)
         console.log(ajaxOptions)
         console.log(thrownError)
-        alert('Fail');
+        console.log('Fail');
     });
     var button = document.getElementById("showTagListButton");
     button.disabled = true;
@@ -42,7 +56,7 @@ function searchTagBox() {
 }
 
 function formatTag(tag) {
-    var text = 'Tag # ' + tag.ID + '\nName: ' + tag.Name;
+    var text = 'Games: ' + tag.Games;
 
     return text = text.replace(/\r?\n/g, '<br />');
 }
@@ -79,7 +93,7 @@ function deleteTag() {
 
         $('li[id^="tagList' + id.toString() + '"]').remove();
         $('#div-listTags').html("");
-        listGames();
+        listTags();
         document.getElementById('tagId').value = '';
         $('#div-specificTagInfo').html("");
 
@@ -89,7 +103,7 @@ function deleteTag() {
         console.log(xhr)
         console.log(ajaxOptions)
         console.log(thrownError)
-        alert('Fail');
+        console.log('Fail');
     });
 
 
@@ -104,9 +118,9 @@ function showEditTag() {
 
 function editTag() {
 
-    var id = $('#editGameButton').attr('value');
+    var id = $('#editTagButton').attr('value');
 
-    var name = $('#gameTag').val();
+    var name = $('#tagName').val();
 
     var ajaxHandler = $.ajax({
         type: 'Put',
@@ -126,7 +140,7 @@ function editTag() {
         console.log(xhr)
         console.log(ajaxOptions)
         console.log(thrownError)
-        alert('Fail');
+        console.log('Fail');
     });
 
 }
@@ -161,7 +175,7 @@ function createTag() {
         console.log(xhr)
         console.log(ajaxOptions)
         console.log(thrownError)
-        alert('Fail');
+        console.log('Fail');
     });
 
     $('div[id^="div-"]').hide();
