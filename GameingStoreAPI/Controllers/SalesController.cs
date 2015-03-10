@@ -30,7 +30,7 @@ namespace GamingStoreAPI.Controllers
 
         
         // GET api/Sales/5
-        [Authorize(Roles = "Customer, StoreAdmin")]
+        [Authorize(Roles = "StoreAdmin")]
         public HttpResponseMessage GetSale(int id)
         {
             Sale sale = repo.getSaleById(id);
@@ -83,7 +83,8 @@ namespace GamingStoreAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, factoredSale);
         }
 
-        [Authorize(Roles = "StoreAdmin")]
+
+        [Authorize(Roles = "Customer, StoreAdmin")]
         public HttpResponseMessage GetEmployee(int employeeid)
         {
             Sale sale = repo.getSaleByEmployeeId(employeeid);

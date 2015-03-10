@@ -32,6 +32,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // GET api/Games/5
+        [AllowAnonymous]
         public HttpResponseMessage GetGame(int id)
         {
             List<GameDTO> gamelist = new List<GameDTO>();
@@ -72,7 +73,6 @@ namespace GamingStoreAPI.Controllers
 
         // PUT api/Games/5
         [Authorize(Roles = "StoreAdmin")]
-        [AllowAnonymous]
         public HttpResponseMessage PutGame(int id, Game game)
         {
             if (!ModelState.IsValid)

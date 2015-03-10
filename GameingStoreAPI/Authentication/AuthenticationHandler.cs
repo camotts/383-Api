@@ -10,41 +10,49 @@ using System.Threading;
 
 namespace GamingStoreAPI.Authentication
 {
-
-
     public class AuthenticationHandler : DelegatingHandler
     {
-
-        private DataContext db = new DataContext();
-
-        protected override System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(
+        private int? id = null;
+        private string key = null;
+       
+        protected async override System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
         {
-            int ? id = null;
-            string apikey = "";
 
-            CookieHeaderValue cookie = request.Headers.GetCookies().FirstOrDefault();
-            if (cookie != null)
+            if (id != null)
             {
-                id = Int32.Parse(cookie["xcmps383authenticationid"].Value);
-                apikey = cookie["xcmps383authenticationkey"].Value;
-
-                var user = db.Users.Find(id);
-                if(user.APIKey == apikey)
+                using (DataContext db = new DataContext())
                 {
-                    IList<Claim> claim = new List<Claim>
+                    var user = db.Users.Find(id);
+                    if (user.APIKey == key)
+                    {
+                        IList<Claim> claim = new List<Claim>
                     {
                         new Claim (ClaimTypes.Name, user.Email),
                         new Claim (ClaimTypes.Role, user.Role.ToString())
                     };
-                    var identity = new ClaimsIdentity(claim, "APIKey");
-                    var principal = new ClaimsPrincipal(identity);
+                        var identity = new ClaimsIdentity(claim, "APIKey");
+                        var principal = new ClaimsPrincipal(identity);
 
-                    Thread.CurrentPrincipal = principal;
+                        Thread.CurrentPrincipal = principal;
+                    }
                 }
             }
-            return base.SendAsync(request, cancellationToken);
+
+            var response = await base.SendAsync(request, cancellationToken);
+
+            var headers = response.Headers;
+
+            if (headers.Contains("xcmps383authenticationid") && headers.Contains("xcmps383authenticationid"))
+            {
+                id = Int32.Parse(response.Headers.GetValues("xcmps383authenticationid").FirstOrDefault());
+                key = response.Headers.GetValues("xcmps383authenticationkey").FirstOrDefault();
+            }
+
+            return response;
         }
+
+
 
 
     }

@@ -31,7 +31,7 @@ namespace GamingStoreAPI.Controllers
         }
 
         // GET api/Games/5
-        [Authorize(Roles = "StoreAdmin")]
+        [Authorize(Roles = "Employee, StoreAdmin")]
         public HttpResponseMessage GetCart(int id)
         {
             Cart cart = repo.getCartById(id);
