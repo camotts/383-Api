@@ -70,11 +70,11 @@ function listUsers() {
             $('<div>').attr('class', "panel panel-default").attr('id', "user" + id + "depth1").attr('aria-expanded', "false").appendTo($('#userListAccordion'));
             $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "user" + id + "depth2").attr('aria-expanded', "false").appendTo($('#user' + id + 'depth1'));
             $('<h4>').attr('class', "panel-title").attr('id', "user" + id + "depth3").attr('aria-expanded', "false").appendTo($('#user' + id + 'depth2'));
-            $('<a>', { text: item.Email }).attr("data-toggle", "collapse").attr("data-parent", "#userListAccordion").attr("href", "#collapse" + id).attr('aria-labelledby', "heading" + id).attr('aria-expanded', "false").attr('id', "user" + id + "depth4").appendTo($('#user' + id + 'depth3'));
+            $('<a>', { text: item.Email }).attr("data-toggle", "collapse").attr("data-parent", "#userListAccordion").attr("href", "#collapse" + id).attr('aria-labelledby', ('#user' + id + 'depth2')).attr('aria-expanded', "false").attr('id', "user" + id + "depth4").appendTo($('#user' + id + 'depth3'));
             $('<div>').attr('id', "collapse" + id).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', '#user' + id + 'depth2').attr('aria-expanded', "false").appendTo($('#user' + id + 'depth1'));
             $('<div>', { text: formatItem(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + id);
             $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditUser(" + id + ");").appendTo('#collapse' + id);
-            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteUser(" + id + ");").appendTo('#collapse' + id);
+            $('<button>', { text: "Delete!" }).attr('class', "float-right").attr('onclick', "deleteUser(" + id + ");").appendTo('#collapse' + id);
             
 
         });
