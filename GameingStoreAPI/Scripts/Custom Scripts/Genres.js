@@ -8,15 +8,18 @@
     });
     ajaxHandler.done(function (result) {
         $.each(result, function (key, item) {
+            var str = item.Url;
+            var split = str.split("/");
+            var id = split[split.length - 1];
             // Add a list item for the product.
-            $('<div>').attr('class', "panel panel-default").attr('id', "genre" + item.Url.substr(item.Url.length - 1) + "depth1").attr('aria-expanded', "false").appendTo($('#genreListAccordion'));
-            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "genre" + item.Url.substr(item.Url.length - 1) + "depth2").attr('aria-expanded', "false").appendTo($('#genre' + item.Url.substr(item.Url.length - 1) + 'depth1'));
-            $('<h4>').attr('class', "panel-title").attr('id', "genre" + item.Url.substr(item.Url.length - 1) + "depth3").attr('aria-expanded', "false").appendTo($('#genre' + item.Url.substr(item.Url.length - 1) + 'depth2'));
-            $('<a>', { text: item.Name }).attr("data-toggle", "collapse").attr("data-parent", "#genreListAccordion").attr("href", "#collapse" + item.Url.substr(item.Url.length - 1)).attr('aria-labelledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").attr('id', "genre" + item.Url.substr(item.Url.length - 1) + "depth4").appendTo($('#genre' + item.Url.substr(item.Url.length - 1) + 'depth3'));
-            $('<div>').attr('id', "collapse" + item.Url.substr(item.Url.length - 1)).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + item.Url.substr(item.Url.length - 1)).attr('aria-expanded', "false").appendTo($('#genre' + item.Url.substr(item.Url.length - 1) + 'depth1'));
-            $('<div>', { html: formatGenre(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditGenre(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
-            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteGenre(" + item.Url.substr(item.Url.length - 1) + ");").appendTo('#collapse' + item.Url.substr(item.Url.length - 1));
+            $('<div>').attr('class', "panel panel-default").attr('id', "genre" + id + "depth1").attr('aria-expanded', "false").appendTo($('#genreListAccordion'));
+            $('<div>').attr('class', "panel-heading").attr('role', "tab").attr('id', "genre" + id + "depth2").attr('aria-expanded', "false").appendTo($('#genre' + id + 'depth1'));
+            $('<h4>').attr('class', "panel-title").attr('id', "genre" + id + "depth3").attr('aria-expanded', "false").appendTo($('#genre' + id + 'depth2'));
+            $('<a>', { text: item.Name }).attr("data-toggle", "collapse").attr("data-parent", "#genreListAccordion").attr("href", "#collapse" + id).attr('aria-labelledby', '#genre' + id + 'depth2').attr('aria-expanded', "false").attr('id', "genre" + id + "depth4").appendTo($('#genre' + id + 'depth3'));
+            $('<div>').attr('id', "collapse" + id).attr('class', "panel-collapse collapse in").attr('role', "tabpanel").attr('aria-labeledby', "heading" + id).attr('aria-expanded', "false").appendTo($('#genre' + id + 'depth1'));
+            $('<div>', { html: formatGenre(item) }).attr('class', "panel-body").attr('aria-expanded', "false").appendTo('#collapse' + id);
+            $('<button>', { text: "Edit" }).attr('class', "float-right").attr('onclick', "showEditGenre(" + id + ");").appendTo('#collapse' + id);
+            $('<button>', { text: "Delete" }).attr('class', "float-right").attr('onclick', "deleteGenre(" + id + ");").appendTo('#collapse' + id);
             //$('<li>', { html: formatGenre(item) }).attr("Id", "genreList" + item.ID).appendTo($('#div-listGenre'));
         });
     });
